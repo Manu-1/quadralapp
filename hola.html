@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadrala x RS App - Fútbol Caracas</title>
+    <title>Quadrala x RS App - Flujo Completo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -82,17 +82,28 @@
             display: none;
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
             z-index: 100;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.2s ease-out;
         }
         .modal.active { display: flex; }
+
+        /* Clases de Switch de Deporte */
+        .only-padel { display: none; }
+        .app-padel .only-padel { display: block; }
+        .app-padel .only-football { display: none; }
+        
+        /* Flex versions for tailwind */
+        .app-padel .flex.only-padel { display: flex; }
+        .app-padel .grid.only-padel { display: grid; }
     </style>
 </head>
 <body class="text-white">
 
-    <div class="phone-mockup">
+    <div id="app-container" class="phone-mockup">
         <div class="notch"></div>
 
         <!-- ============================== -->
@@ -101,10 +112,10 @@
         <div id="screen-login" class="screen active p-8">
             <div class="mt-20 mb-10 flex flex-col items-center text-center">
                 <div class="w-20 h-20 bg-emerald-500 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-emerald-500/20">
-                    <i class="fas fa-futbol text-white text-4xl"></i>
+                    <i class="fas fa-layer-group text-white text-4xl"></i>
                 </div>
                 <h1 class="text-4xl font-black italic uppercase tracking-tighter">Quadrala<span class="text-emerald-500">.</span></h1>
-                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-2">Fútbol Elite Caracas</p>
+                <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-2">Plataforma Elite</p>
             </div>
 
             <div class="bg-slate-900 p-1.5 rounded-2xl flex mb-8 border border-white/5">
@@ -126,64 +137,50 @@
             <button onclick="handleLogin()" class="w-full rs-gradient text-slate-950 py-4 rounded-2xl font-black italic uppercase shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform">
                 Entrar a la Cancha
             </button>
-
-            <div class="mt-auto text-center pb-4">
-                <p class="text-slate-500 text-xs font-semibold">¿No tienes cuenta? <span class="text-emerald-500 font-bold cursor-pointer" onclick="navigate('screen-register')">Fíchate aquí</span></p>
-            </div>
-        </div>
-
-        <!-- ============================== -->
-        <!-- SCREEN 1.5: REGISTRO           -->
-        <!-- ============================== -->
-        <div id="screen-register" class="screen p-8">
-            <button onclick="navigate('screen-login')" class="text-emerald-500 text-xs font-bold uppercase flex items-center gap-2 mt-8 mb-6 cursor-pointer">
-                <i class="fas fa-arrow-left"></i> Volver
-            </button>
-            <h2 class="text-3xl font-black italic uppercase tracking-tighter mb-6">Únete a la <span class="text-emerald-500">Élite</span></h2>
-            
-            <div class="space-y-4 mb-8">
-                <input type="text" placeholder="Nombre completo" class="w-full bg-slate-900 border-none rounded-2xl py-4 px-5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                <input type="email" placeholder="Correo electrónico" class="w-full bg-slate-900 border-none rounded-2xl py-4 px-5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                <select class="w-full bg-slate-900 border-none rounded-2xl py-4 px-5 text-sm text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 appearance-none">
-                    <option>Posición principal</option>
-                    <option>Portero</option>
-                    <option>Defensa</option>
-                    <option>Mediocampista</option>
-                    <option>Delantero</option>
-                </select>
-                <input type="password" placeholder="Crear contraseña" class="w-full bg-slate-900 border-none rounded-2xl py-4 px-5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
-            </div>
-
-            <button onclick="navigate('screen-home')" class="w-full rs-gradient text-slate-950 py-4 rounded-2xl font-black italic uppercase shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform mt-auto mb-4">
-                Crear Perfil
-            </button>
         </div>
 
         <!-- ============================== -->
         <!-- SCREEN 2: HOME (JUGADOR)       -->
         <!-- ============================== -->
         <div id="screen-home" class="screen hide-scrollbar relative">
-            <header class="px-6 pt-14 pb-4 flex justify-between items-center bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md">
+            <header class="px-6 pt-14 pb-4 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md flex justify-between items-center">
                 <div>
-                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Atleta Verificado • Nivel Gold</p>
+                    <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Atleta Verificado</p>
                     <h2 class="text-white text-xl font-black italic uppercase tracking-tighter">Carlos Mendoza <span class="text-emerald-500">.</span></h2>
                 </div>
-                <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer" onclick="navigate('screen-profile')">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos&backgroundColor=0f172a" class="w-full h-full object-cover" alt="Perfil">
+                <div class="flex gap-4 items-center">
+                    <div class="relative cursor-pointer" onclick="toggleModal('notifications-modal')">
+                        <i class="fas fa-bell text-slate-300 text-xl hover:text-emerald-400 transition-colors"></i>
+                        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-slate-950"></span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer" onclick="navigate('screen-profile')">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos&backgroundColor=0f172a" class="w-full h-full object-cover" alt="Perfil">
+                    </div>
                 </div>
             </header>
 
             <div class="px-6 space-y-6 pb-24">
+                <!-- SWITCH DE DEPORTE -->
+                <div class="bg-slate-900 p-1.5 rounded-xl border border-white/5 flex">
+                    <button id="btn-fut" onclick="setSport('football')" class="flex-1 py-2 text-[10px] font-black rounded-lg transition-all bg-emerald-500 text-slate-950 uppercase">Fútbol</button>
+                    <button id="btn-padel" onclick="setSport('padel')" class="flex-1 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 uppercase">Pádel</button>
+                </div>
+
                 <!-- Pasaporte Verificado -->
                 <div class="rs-gradient rounded-[2rem] p-6 text-white shadow-xl shadow-emerald-900/40 relative overflow-hidden cursor-pointer" onclick="navigate('screen-profile')">
-                    <i class="fas fa-futbol absolute -right-6 -bottom-6 text-9xl opacity-10"></i>
+                    <!-- Icono dinámico según deporte -->
+                    <i class="fas fa-futbol absolute -right-6 -bottom-6 text-9xl opacity-10 only-football"></i>
+                    <i class="fas fa-table-tennis-paddle-ball absolute -right-6 -bottom-6 text-9xl opacity-10 only-padel"></i>
+                    
                     <div class="relative z-10">
                         <div class="flex justify-between items-center mb-4">
                             <span class="bg-black/20 text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Q-Rating Activo</span>
                             <i class="fas fa-check-circle text-emerald-200"></i>
                         </div>
-                        <p class="text-emerald-100 text-[10px] font-bold uppercase mt-1">Especialidad</p>
-                        <h3 class="text-4xl font-black italic uppercase tracking-tighter leading-none mb-4">Fútbol 7</h3>
+                        <p class="text-emerald-100 text-[10px] font-bold uppercase mt-1">Nivel en la app</p>
+                        
+                        <h3 class="text-4xl font-black italic uppercase tracking-tighter leading-none mb-4 only-football">Fútbol 7</h3>
+                        <h3 class="text-4xl font-black italic uppercase tracking-tighter leading-none mb-4 only-padel">Pádel 4.5</h3>
                         
                         <div class="flex justify-between items-center bg-black/10 rounded-xl p-3 backdrop-blur-sm">
                             <div class="flex flex-col">
@@ -195,37 +192,50 @@
                     </div>
                 </div>
 
-                <!-- Selección de Cancha Caracas -->
-                <div>
+                <!-- SECCIÓN CANCHAS FÚTBOL -->
+                <div class="only-football">
                     <div class="flex justify-between items-end mb-3">
                         <h4 class="text-sm font-black italic uppercase tracking-wider text-white">Canchas en Caracas</h4>
                         <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer">Ver Mapa</span>
                     </div>
-                    
                     <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                        <!-- Cancha 1 -->
-                        <div onclick="startBooking('La Guacamaya (Las Mercedes)')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="navigate('screen-create')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="La Guacamaya">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">La Guacamaya</p>
                             <p class="text-[10px] text-emerald-400 font-bold uppercase">Fútbol 7 • Disponible</p>
                         </div>
-                        <!-- Cancha 2 -->
-                        <div onclick="startBooking('Complejo Fray Luis')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="navigate('screen-create')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Fray Luis">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">Complejo Fray Luis</p>
                             <p class="text-[10px] text-blue-400 font-bold uppercase">Fútbol 11 • Techada</p>
                         </div>
-                        <!-- Cancha 3 -->
-                        <div onclick="startBooking('Colegio San Ignacio')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                    </div>
+                </div>
+
+                <!-- SECCIÓN CANCHAS PÁDEL -->
+                <div class="only-padel">
+                    <div class="flex justify-between items-end mb-3">
+                        <h4 class="text-sm font-black italic uppercase tracking-wider text-white">Clubes de Pádel</h4>
+                        <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer">Ver Mapa</span>
+                    </div>
+                    <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                        <div onclick="navigate('screen-create')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1526232759583-26f1ddf2471b?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="San Ignacio">
+                                <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="RS Pádel">
                             </div>
-                            <p class="font-bold text-sm leading-tight mb-1">San Ignacio</p>
-                            <p class="text-[10px] text-yellow-500 font-bold uppercase">Fútbol 5 • Tarde</p>
+                            <p class="font-bold text-sm leading-tight mb-1">RS Los Naranjos</p>
+                            <p class="text-[10px] text-emerald-400 font-bold uppercase">Pádel • Cristal</p>
+                        </div>
+                        <div onclick="navigate('screen-create')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                            <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1554068865-c3ce14d12753?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Capital Padel">
+                            </div>
+                            <p class="font-bold text-sm leading-tight mb-1">Capital Pádel</p>
+                            <p class="text-[10px] text-blue-400 font-bold uppercase">Techada • Premium</p>
                         </div>
                     </div>
                 </div>
@@ -237,9 +247,10 @@
                         <div class="absolute inset-0 bg-emerald-500 opacity-20"></div>
                     </div>
                     <div class="flex-1">
-                        <p class="text-emerald-500 text-[8px] font-black uppercase tracking-widest leading-none mb-1">RS Football Store</p>
-                        <h4 class="text-white font-black italic uppercase text-sm leading-tight">Equípate para la caimanera</h4>
-                        <p class="text-slate-400 text-[10px] font-bold mt-1">Botas, balones y más...</p>
+                        <p class="text-emerald-500 text-[8px] font-black uppercase tracking-widest leading-none mb-1">RS Store Oficial</p>
+                        <h4 class="text-white font-black italic uppercase text-sm leading-tight only-football">Equípate para jugar</h4>
+                        <h4 class="text-white font-black italic uppercase text-sm leading-tight only-padel">Palas y Accesorios</h4>
+                        <p class="text-slate-400 text-[10px] font-bold mt-1">Ofertas para tu nivel</p>
                     </div>
                     <i class="fas fa-chevron-right text-slate-500 text-sm"></i>
                 </div>
@@ -249,7 +260,8 @@
                     <h4 class="text-sm font-black italic uppercase tracking-wider text-white mb-3">Mis Partidas Próximas</h4>
                     <div class="rs-glass p-4 rounded-3xl border-l-4 border-yellow-500 cursor-pointer" onclick="navigate('screen-status')">
                         <div class="flex justify-between items-center mb-2">
-                            <h5 class="text-xs font-black uppercase tracking-tight text-white">La Guacamaya - Cancha 2</h5>
+                            <h5 class="text-xs font-black uppercase tracking-tight text-white only-football">La Guacamaya - Cancha 2</h5>
+                            <h5 class="text-xs font-black uppercase tracking-tight text-white only-padel">RS Los Naranjos - Pista 4</h5>
                             <span class="bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded text-[8px] font-bold uppercase">En Proceso</span>
                         </div>
                         <p class="text-[10px] text-slate-400 font-bold uppercase">Hoy 19:30 • Faltan 3 pagos</p>
@@ -261,156 +273,95 @@
         </div>
 
         <!-- ============================== -->
-        <!-- SCREEN 2.5: RS MARKETPLACE     -->
+        <!-- SCREEN: CREAR PARTIDA (+)      -->
         <!-- ============================== -->
-        <div id="screen-store" class="screen hide-scrollbar relative">
-            <header class="px-6 pt-14 pb-4 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md border-b border-white/5">
-                <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mb-4 cursor-pointer">
-                    <i class="fas fa-arrow-left"></i> Volver
-                </button>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h2 class="text-white text-3xl font-black italic uppercase tracking-tighter leading-none">RS Store</h2>
-                        <p class="text-slate-400 text-xs mt-1 font-semibold">Equipamiento Oficial de Fútbol</p>
-                    </div>
-                    <div class="bg-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2">
-                        <i class="fas fa-coins text-yellow-400 text-xs"></i>
-                        <span class="font-bold text-sm">1,250</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="px-6 pt-6 pb-24">
-                <!-- Filtros Store -->
-                <div class="flex gap-2 overflow-x-auto hide-scrollbar mb-6">
-                    <button class="bg-emerald-500 text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Botas</button>
-                    <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Balones</button>
-                    <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Textil</button>
-                    <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Accesorios</button>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Producto 1 -->
-                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
-                        <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase">Nuevo</div>
-                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
-                            <img src="https://img.icons8.com/color/96/football-boots.png" alt="Botas RS" class="object-contain h-full">
-                        </div>
-                        <p class="text-slate-400 text-[9px] uppercase font-bold">Calzado</p>
-                        <h4 class="text-white text-xs font-black leading-tight mb-2">Botas RS Pro Strike F5</h4>
-                        <div class="flex justify-between items-center">
-                            <span class="text-emerald-400 font-bold text-sm">$45.00</span>
-                            <button class="bg-white/10 p-1.5 rounded-lg hover:bg-emerald-500 hover:text-slate-900 transition-colors"><i class="fas fa-plus text-xs"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 2 -->
-                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
-                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
-                            <img src="https://img.icons8.com/color/96/football2.png" alt="Balón RS" class="object-contain h-full">
-                        </div>
-                        <p class="text-slate-400 text-[9px] uppercase font-bold">Equipamiento</p>
-                        <h4 class="text-white text-xs font-black leading-tight mb-2">Balón Oficial RS Liga</h4>
-                        <div class="flex justify-between items-center">
-                            <span class="text-emerald-400 font-bold text-sm">$30.00</span>
-                            <button class="bg-white/10 p-1.5 rounded-lg hover:bg-emerald-500 hover:text-slate-900 transition-colors"><i class="fas fa-plus text-xs"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 3 -->
-                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
-                        <div class="absolute top-2 left-2 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase">-20%</div>
-                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
-                            <img src="https://img.icons8.com/color/96/jersey.png" alt="Camiseta RS" class="object-contain h-full">
-                        </div>
-                        <p class="text-slate-400 text-[9px] uppercase font-bold">Textil</p>
-                        <h4 class="text-white text-xs font-black leading-tight mb-2">Camiseta RS Dry-Fit</h4>
-                        <div class="flex justify-between items-center">
-                            <span class="text-emerald-400 font-bold text-sm">$25.00</span>
-                            <button class="bg-white/10 p-1.5 rounded-lg hover:bg-emerald-500 hover:text-slate-900 transition-colors"><i class="fas fa-plus text-xs"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 4 -->
-                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
-                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
-                            <img src="https://img.icons8.com/color/96/sports-shorts.png" alt="Shorts RS" class="object-contain h-full">
-                        </div>
-                        <p class="text-slate-400 text-[9px] uppercase font-bold">Textil</p>
-                        <h4 class="text-white text-xs font-black leading-tight mb-2">Short RS Elite Training</h4>
-                        <div class="flex justify-between items-center">
-                            <span class="text-emerald-400 font-bold text-sm">$15.00</span>
-                            <button class="bg-white/10 p-1.5 rounded-lg hover:bg-emerald-500 hover:text-slate-900 transition-colors"><i class="fas fa-plus text-xs"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================== -->
-        <!-- SCREEN 3: AÑADIR USUARIOS / BOOKING -->
-        <!-- ============================== -->
-        <div id="screen-booking" class="screen hide-scrollbar relative">
+        <div id="screen-create" class="screen hide-scrollbar relative">
             <header class="px-6 pt-14 pb-4 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md">
                 <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mb-4 cursor-pointer">
                     <i class="fas fa-arrow-left"></i> Volver
                 </button>
                 <h2 class="text-white text-2xl font-black italic uppercase tracking-tighter leading-none">Armar Partida</h2>
-                <p id="booking-venue-name" class="text-slate-400 text-xs mt-2 font-semibold">Cancha seleccionada</p>
+                <p class="text-slate-400 text-xs mt-2 font-semibold">Reserva e invita a tus amigos</p>
             </header>
 
             <div class="px-6 space-y-6 pt-4 pb-24">
-                <div class="rs-glass p-4 rounded-2xl">
-                    <label class="text-[10px] font-bold uppercase text-slate-500">Fecha y Hora</label>
-                    <select class="w-full bg-transparent border-none text-white font-bold outline-none mt-1">
-                        <option>Hoy, 19:00 - 20:30 ($40)</option>
-                        <option>Mañana, 20:00 - 21:00 ($35)</option>
-                    </select>
+                <!-- Paso 1: Dónde y Cuándo -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-black italic uppercase tracking-wider text-emerald-400">1. Sede y Horario</h4>
+                    
+                    <div class="rs-glass p-4 rounded-2xl relative">
+                        <i class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                        <select class="w-full bg-transparent border-none text-white font-bold outline-none pl-8 appearance-none cursor-pointer">
+                            <optgroup label="Fútbol" class="only-football">
+                                <option>La Guacamaya (F7)</option>
+                                <option>Complejo Fray Luis (F11)</option>
+                                <option>San Ignacio (F5)</option>
+                            </optgroup>
+                            <optgroup label="Pádel" class="only-padel">
+                                <option>RS Los Naranjos (Cristal)</option>
+                                <option>Capital Padel (Techada)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="rs-glass p-4 rounded-2xl relative">
+                        <i class="fas fa-clock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                        <select class="w-full bg-transparent border-none text-white font-bold outline-none pl-8 appearance-none cursor-pointer">
+                            <option>Hoy, 19:00 - 20:30</option>
+                            <option>Hoy, 20:30 - 22:00</option>
+                            <option>Mañana, 18:00 - 19:30</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-sm font-black italic uppercase tracking-wider text-white">Añadir Jugadores</h4>
-                        <span class="text-emerald-500 text-[10px] font-bold">7/10 Seleccionados (F5)</span>
+                <!-- Paso 2: Invitar Amigos -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-sm font-black italic uppercase tracking-wider text-emerald-400">2. Convocatoria</h4>
+                        <span class="text-slate-400 text-[10px] font-bold bg-slate-800 px-2 py-1 rounded">Mis Contactos</span>
                     </div>
                     
                     <div class="space-y-2">
-                        <!-- Player 1 (You) -->
-                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-emerald-500/30">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs font-bold text-emerald-400">TÚ</div>
-                                <span class="text-sm font-bold">Carlos M. (Capitán)</span>
-                            </div>
-                            <i class="fas fa-check-circle text-emerald-500"></i>
-                        </div>
-                        <!-- Player 2 -->
-                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl">
+                        <!-- Amigo 1 -->
+                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-white/5">
                             <div class="flex items-center gap-3">
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jose" class="w-8 h-8 rounded-full bg-slate-800" />
-                                <span class="text-sm font-bold">José Pérez</span>
+                                <div>
+                                    <p class="text-sm font-bold">José Pérez</p>
+                                    <p class="text-[10px] text-slate-400">Rating: 4.8 <i class="fas fa-star text-yellow-500"></i></p>
+                                </div>
                             </div>
-                            <button class="text-rose-500"><i class="fas fa-times"></i></button>
+                            <button class="bg-emerald-500 text-slate-900 px-3 py-1 rounded-lg text-[10px] font-black uppercase hover:bg-emerald-400 btn-invite" onclick="toggleInvite(this)">Invitar</button>
                         </div>
-                        <!-- Player 3 -->
-                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl">
+                        <!-- Amigo 2 -->
+                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-white/5">
                             <div class="flex items-center gap-3">
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Luis" class="w-8 h-8 rounded-full bg-slate-800" />
-                                <span class="text-sm font-bold">Luis Silva</span>
+                                <div>
+                                    <p class="text-sm font-bold">Luis Silva</p>
+                                    <p class="text-[10px] text-slate-400">Rating: 4.2 <i class="fas fa-star text-yellow-500"></i></p>
+                                </div>
                             </div>
-                            <button class="text-rose-500"><i class="fas fa-times"></i></button>
+                            <button class="bg-emerald-500 text-slate-900 px-3 py-1 rounded-lg text-[10px] font-black uppercase hover:bg-emerald-400 btn-invite" onclick="toggleInvite(this)">Invitar</button>
                         </div>
-                        <!-- Player 4 -->
-                        <div class="flex items-center justify-between border border-dashed border-slate-700 p-3 rounded-xl text-slate-500 cursor-pointer hover:border-emerald-500 transition-colors" onclick="alert('Abriendo lista de contactos...')">
+                        <!-- Amigo 3 -->
+                        <div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-white/5">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><i class="fas fa-plus"></i></div>
-                                <span class="text-sm font-bold">Añadir jugador...</span>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Andres" class="w-8 h-8 rounded-full bg-slate-800" />
+                                <div>
+                                    <p class="text-sm font-bold">Andrés G.</p>
+                                    <p class="text-[10px] text-slate-400">Rating: 4.5 <i class="fas fa-star text-yellow-500"></i></p>
+                                </div>
                             </div>
+                            <button class="bg-emerald-500 text-slate-900 px-3 py-1 rounded-lg text-[10px] font-black uppercase hover:bg-emerald-400 btn-invite" onclick="toggleInvite(this)">Invitar</button>
                         </div>
                     </div>
+                    
+                    <p class="text-[10px] text-slate-500 text-center italic mt-2">Los cupos restantes se abrirán a la comunidad Quadrala.</p>
                 </div>
 
                 <button onclick="navigate('screen-split')" class="w-full rs-gradient text-slate-950 py-4 rounded-2xl font-black italic uppercase shadow-xl active:scale-95 transition-transform mt-4">
-                    Continuar al Pago
+                    Generar y Dividir Pago
                 </button>
             </div>
         </div>
@@ -420,7 +371,7 @@
         <!-- ============================== -->
         <div id="screen-split" class="screen hide-scrollbar relative">
             <header class="px-6 pt-14 pb-4 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md">
-                <button onclick="navigate('screen-booking')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mb-4 cursor-pointer">
+                <button onclick="navigate('screen-create')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mb-4 cursor-pointer">
                     <i class="fas fa-arrow-left"></i> Modificar Grupo
                 </button>
                 <h2 class="text-white text-3xl font-black italic uppercase tracking-tighter leading-none">Pago Dividido</h2>
@@ -429,9 +380,9 @@
             <div class="px-6 space-y-6 pt-4 pb-24">
                 <div class="rs-glass p-6 rounded-[2rem] border border-emerald-500/20 text-center">
                     <h3 class="text-emerald-500 text-[10px] font-black uppercase tracking-widest italic mb-2">Total Cancha: $40.00</h3>
-                    <p class="text-slate-400 text-xs mb-6">El cobro se divide entre los 10 jugadores convocados.</p>
+                    <p class="text-slate-400 text-xs mb-6">El cobro se dividirá equitativamente.</p>
                     
-                    <div class="text-5xl font-black italic text-white mb-2">$4.00</div>
+                    <div class="text-5xl font-black italic text-white mb-2">$10.00</div>
                     <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Tu Parte a Pagar</p>
                 </div>
 
@@ -454,15 +405,11 @@
                         </label>
                     </div>
                 </div>
-
-                <p class="text-[10px] text-slate-500 text-center font-semibold px-4">
-                    Al pagar tu parte, se enviará una notificación al resto del equipo para que completen el pago.
-                </p>
             </div>
 
             <div class="absolute bottom-0 w-full p-6 bg-slate-950/90 backdrop-blur-xl border-t border-white/5">
                 <button onclick="confirmPayment()" class="w-full rs-gradient text-slate-950 py-4 rounded-2xl font-black italic uppercase shadow-xl shadow-emerald-500/30 active:scale-95 transition-transform">
-                    Pagar $4.00
+                    Pagar $10.00 y Reservar
                 </button>
             </div>
         </div>
@@ -476,7 +423,10 @@
             </button>
             
             <h2 class="text-3xl font-black italic uppercase tracking-tighter mb-2">Estado de la <span class="text-emerald-500">Partida</span></h2>
-            <p class="text-slate-400 text-xs mb-8">La Guacamaya • Hoy 19:00</p>
+            <p class="text-slate-400 text-xs mb-8">
+                <span class="only-football">La Guacamaya • Hoy 19:00</span>
+                <span class="only-padel">RS Los Naranjos • Hoy 19:00</span>
+            </p>
 
             <div class="space-y-4">
                 <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl border border-white/5">
@@ -485,34 +435,30 @@
                 </div>
 
                 <div class="rs-glass p-6 rounded-2xl space-y-4">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 border-b border-white/10 pb-2">Status de Jugadores (7/10)</h4>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 border-b border-white/10 pb-2">Status de Invitados</h4>
                     
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><span class="text-sm">Carlos M. (Tú)</span></div>
+                        <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><span class="text-sm font-bold">Carlos M. (Tú)</span></div>
                         <span class="text-[10px] text-emerald-500 font-bold bg-emerald-500/10 px-2 py-1 rounded">PAGADO</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500"></div><span class="text-sm">José Pérez</span></div>
-                        <span class="text-[10px] text-emerald-500 font-bold bg-emerald-500/10 px-2 py-1 rounded">PAGADO</span>
+                        <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div><span class="text-sm">José Pérez</span></div>
+                        <span class="text-[10px] text-yellow-500 font-bold bg-yellow-500/10 px-2 py-1 rounded">PENDIENTE</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div><span class="text-sm">Luis Silva</span></div>
                         <span class="text-[10px] text-yellow-500 font-bold bg-yellow-500/10 px-2 py-1 rounded">PENDIENTE</span>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></div><span class="text-sm">Andrés G.</span></div>
-                        <span class="text-[10px] text-yellow-500 font-bold bg-yellow-500/10 px-2 py-1 rounded">PENDIENTE</span>
-                    </div>
                 </div>
 
                 <div class="bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl text-center">
-                    <p class="text-xs text-blue-300">La reserva en la cancha se confirmará automáticamente cuando todos paguen. Faltan $12.00.</p>
+                    <p class="text-xs text-blue-300">Hemos notificado a tus amigos por la App y WhatsApp para que completen su parte.</p>
                 </div>
             </div>
         </div>
 
         <!-- ============================== -->
-        <!-- SCREEN 6: PERFIL DE USUARIO    -->
+        <!-- SCREEN 6: PERFIL Y RANKING     -->
         <!-- ============================== -->
         <div id="screen-profile" class="screen hide-scrollbar p-6">
              <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mt-8 mb-6 cursor-pointer">
@@ -524,19 +470,28 @@
                     <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos&backgroundColor=0f172a" class="w-full h-full object-cover" alt="Perfil">
                 </div>
                 <h2 class="text-3xl font-black italic uppercase tracking-tighter">Carlos Mendoza</h2>
-                <p class="text-emerald-500 font-bold uppercase text-[10px] tracking-widest mt-1">Delantero • Nivel Gold</p>
+                <p class="text-emerald-500 font-bold uppercase text-[10px] tracking-widest mt-1">
+                    <span class="only-football">Fútbol 7 • Nivel Gold</span>
+                    <span class="only-padel">Pádel 4.5 • Lado Revés</span>
+                </p>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="rs-glass p-4 rounded-2xl text-center">
-                    <i class="fas fa-futbol text-emerald-400 text-2xl mb-2"></i>
-                    <div class="text-2xl font-black">42</div>
-                    <div class="text-[10px] text-slate-400 uppercase font-bold">Goles (App)</div>
+                    <i class="fas fa-chart-bar text-emerald-400 text-2xl mb-2"></i>
+                    <div class="text-2xl font-black">
+                        <span class="only-football">42 Goles</span>
+                        <span class="only-padel">68% Win Rate</span>
+                    </div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold">Estadística Global</div>
                 </div>
-                <div class="rs-glass p-4 rounded-2xl text-center">
-                    <i class="fas fa-star text-yellow-500 text-2xl mb-2"></i>
-                    <div class="text-2xl font-black">4.8</div>
-                    <div class="text-[10px] text-slate-400 uppercase font-bold">Q-Rating</div>
+                <!-- BOTÓN DE RANKING INTERACTIVO -->
+                <div class="rs-glass p-4 rounded-2xl text-center cursor-pointer hover:border-yellow-500/50 transition-colors group" onclick="toggleModal('reviews-modal')">
+                    <div class="flex justify-center gap-1 text-yellow-500 text-lg mb-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i>
+                    </div>
+                    <div class="text-2xl font-black group-hover:text-yellow-500 transition-colors">4.8</div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold">Ver Comentarios <i class="fas fa-hand-pointer ml-1"></i></div>
                 </div>
             </div>
 
@@ -562,6 +517,96 @@
         </div>
 
         <!-- ============================== -->
+        <!-- SCREEN 2.5: RS MARKETPLACE     -->
+        <!-- ============================== -->
+        <div id="screen-store" class="screen hide-scrollbar relative">
+            <header class="px-6 pt-14 pb-4 bg-slate-950/90 sticky top-0 z-40 backdrop-blur-md border-b border-white/5">
+                <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mb-4 cursor-pointer">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-white text-3xl font-black italic uppercase tracking-tighter leading-none">RS Store</h2>
+                        <p class="text-slate-400 text-xs mt-1 font-semibold">
+                            <span class="only-football">Equipamiento Oficial de Fútbol</span>
+                            <span class="only-padel">Armadura Oficial de Pádel</span>
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="px-6 pt-6 pb-24">
+                <!-- Filtros Store -->
+                <div class="flex gap-2 overflow-x-auto hide-scrollbar mb-6">
+                    <button class="bg-emerald-500 text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Calzado</button>
+                    <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Equipos</button>
+                    <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">Textil</button>
+                </div>
+
+                <!-- PRODUCTOS FÚTBOL -->
+                <div class="grid grid-cols-2 gap-4 only-football">
+                    <!-- Producto 1 -->
+                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase">Nuevo</div>
+                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
+                            <i class="fas fa-shoe-prints text-5xl text-emerald-500/50 -rotate-45"></i>
+                        </div>
+                        <p class="text-slate-400 text-[9px] uppercase font-bold">Calzado</p>
+                        <h4 class="text-white text-xs font-black leading-tight mb-2">Botas RS Pro Strike F5</h4>
+                        <div class="flex justify-between items-center">
+                            <span class="text-emerald-400 font-bold text-sm">$45.00</span>
+                            <button class="bg-white/10 p-1.5 rounded-lg text-white"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
+                            <i class="fas fa-futbol text-5xl text-white"></i>
+                        </div>
+                        <p class="text-slate-400 text-[9px] uppercase font-bold">Equipamiento</p>
+                        <h4 class="text-white text-xs font-black leading-tight mb-2">Balón Oficial RS Liga</h4>
+                        <div class="flex justify-between items-center">
+                            <span class="text-emerald-400 font-bold text-sm">$30.00</span>
+                            <button class="bg-white/10 p-1.5 rounded-lg text-white"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCTOS PÁDEL -->
+                <div class="grid grid-cols-2 gap-4 only-padel">
+                    <!-- Producto 1 -->
+                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase">Pro</div>
+                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
+                            <i class="fas fa-table-tennis-paddle-ball text-5xl text-blue-400"></i>
+                        </div>
+                        <p class="text-slate-400 text-[9px] uppercase font-bold">Palas</p>
+                        <h4 class="text-white text-xs font-black leading-tight mb-2">RS Pro Edition Power</h4>
+                        <div class="flex justify-between items-center">
+                            <span class="text-emerald-400 font-bold text-sm">$120.00</span>
+                            <button class="bg-white/10 p-1.5 rounded-lg text-white"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center p-2">
+                            <i class="fas fa-shirt text-5xl text-emerald-500/50"></i>
+                        </div>
+                        <p class="text-slate-400 text-[9px] uppercase font-bold">Textil</p>
+                        <h4 class="text-white text-xs font-black leading-tight mb-2">Camiseta RS Dry-Fit</h4>
+                        <div class="flex justify-between items-center">
+                            <span class="text-emerald-400 font-bold text-sm">$25.00</span>
+                            <button class="bg-white/10 p-1.5 rounded-lg text-white"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================== -->
         <!-- SCREEN 7: DASHBOARD DUEÑO CANCHA-->
         <!-- ============================== -->
         <div id="screen-owner-dash" class="screen hide-scrollbar relative">
@@ -569,7 +614,10 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <p class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest">Panel de Administración</p>
-                        <h2 class="text-white text-xl font-black italic uppercase tracking-tighter">La Guacamaya</h2>
+                        <h2 class="text-white text-xl font-black italic uppercase tracking-tighter">
+                            <span class="only-football">La Guacamaya</span>
+                            <span class="only-padel">RS Los Naranjos</span>
+                        </h2>
                     </div>
                     <button onclick="switchLoginRole('player'); navigate('screen-home')" class="text-slate-400 text-xs border border-slate-700 px-2 py-1 rounded">Salir</button>
                 </div>
@@ -594,28 +642,18 @@
                     <div class="space-y-3">
                         <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-emerald-500">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold">Cancha 1 (F5)</span>
+                                <span class="font-bold">Cancha 1</span>
                                 <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">PAGADO</span>
                             </div>
                             <p class="text-xs text-slate-400">17:00 - 18:00 • Org: Juan P.</p>
                         </div>
 
-                        <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-yellow-500">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold">Cancha 2 (F7)</span>
-                                <span class="text-[10px] bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded font-bold">ESPERANDO PAGO (7/10)</span>
-                            </div>
-                            <p class="text-xs text-slate-400">19:00 - 20:30 • Org: Carlos M.</p>
-                            <button class="mt-2 text-[10px] text-emerald-400 border border-emerald-400/30 px-3 py-1 rounded w-full hover:bg-emerald-500/10">Aprobar Manualmente</button>
-                        </div>
-                        
                         <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-slate-600 opacity-50">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="font-bold">Cancha 3 (F11)</span>
+                                <span class="font-bold">Cancha 3</span>
                                 <span class="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded font-bold">DISPONIBLE</span>
                             </div>
                             <p class="text-xs text-slate-400">21:00 - 22:30</p>
-                            <button class="mt-2 text-[10px] text-white bg-slate-700 px-3 py-1 rounded w-full">Crear Oferta Relámpago</button>
                         </div>
                     </div>
                 </div>
@@ -625,22 +663,88 @@
 
     </div>
 
-    <!-- Modals & Scripts -->
+    <!-- ============================== -->
+    <!-- MODALS & OVERLAYS              -->
+    <!-- ============================== -->
+    
+    <!-- Modal de Notificaciones -->
+    <div id="notifications-modal" class="modal" onclick="if(event.target===this) toggleModal('notifications-modal')">
+        <div class="bg-slate-900 w-[320px] rounded-[2rem] p-6 border border-slate-700 absolute top-24 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-black italic uppercase text-lg text-white">Notificaciones</h3>
+                <button onclick="toggleModal('notifications-modal')" class="text-slate-500 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-emerald-500">
+                    <p class="text-sm text-white leading-tight"><b>Luis Silva</b> te ha invitado a una partida en <span class="only-football">La Guacamaya</span><span class="only-padel">RS Los Naranjos</span>.</p>
+                    <p class="text-[10px] text-emerald-400 mt-2 font-bold uppercase">Hace 5 min</p>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-yellow-500">
+                    <p class="text-sm text-white leading-tight">Tienes un pago pendiente de <b>$4.00</b> para confirmar tu cupo.</p>
+                    <button onclick="toggleModal('notifications-modal'); navigate('screen-status')" class="mt-2 text-[10px] bg-yellow-500 text-slate-900 px-3 py-1 rounded font-bold uppercase">Pagar ahora</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Comentarios/Ranking -->
+    <div id="reviews-modal" class="modal" onclick="if(event.target===this) toggleModal('reviews-modal')">
+        <div class="bg-slate-900 w-[320px] rounded-[2rem] p-6 border border-yellow-500/30 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="flex justify-center gap-1 text-yellow-500 text-2xl mb-2">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i>
+                </div>
+                <h3 class="font-black italic uppercase text-2xl text-white">Q-Rating 4.8</h3>
+                <p class="text-xs text-slate-400">Basado en 24 partidos</p>
+            </div>
+            
+            <div class="space-y-4 max-h-[300px] overflow-y-auto hide-scrollbar">
+                <!-- Review 1 -->
+                <div class="bg-slate-800/40 p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-sm text-white">Alejandro G.</span>
+                        <span class="text-yellow-500 text-xs font-bold">5.0 <i class="fas fa-star"></i></span>
+                    </div>
+                    <p class="text-xs text-slate-300 italic">"Llega puntual, no se queja y lo deja todo en la cancha. Excelente jugador para el equipo."</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-slate-800/40 p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-sm text-white">Roberto (Capitán)</span>
+                        <span class="text-yellow-500 text-xs font-bold">4.5 <i class="fas fa-star"></i></span>
+                    </div>
+                    <p class="text-xs text-slate-300 italic">"Buen nivel. Siempre paga su parte al momento de reservar. Recomendado."</p>
+                </div>
+            </div>
+            <button onclick="toggleModal('reviews-modal')" class="mt-6 w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Pago Exitoso -->
     <div id="payment-modal" class="modal">
-        <div class="bg-slate-900 border border-emerald-500 p-8 rounded-3xl text-center max-w-[300px] transform scale-95 animation-pop">
+        <div class="bg-slate-900 border border-emerald-500 p-8 rounded-3xl text-center max-w-[300px]">
             <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-900 text-3xl">
                 <i class="fas fa-check"></i>
             </div>
-            <h3 class="text-xl font-black italic uppercase mb-2">Pago Exitoso</h3>
-            <p class="text-sm text-slate-400 mb-6">Tu parte ($4.00) ha sido procesada. Esperando al resto del equipo.</p>
-            <button onclick="closePaymentModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl">Ver Estado</button>
+            <h3 class="text-xl font-black italic uppercase mb-2 text-white">Pago Exitoso</h3>
+            <p class="text-sm text-slate-400 mb-6">Tu parte ha sido procesada. Esperando al resto del equipo.</p>
+            <button onclick="closePaymentModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl uppercase tracking-widest text-xs">Ver Estado de Partida</button>
         </div>
     </div>
 
     <script>
+        // Variables Globales
         let currentRole = 'player';
+        let currentSport = 'football'; // 'football' o 'padel'
 
-        // Inicializar TabBars
+        // Inicializar Estado de Deporte al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            setSport('football');
+        });
+
+        // TabBars (Inyectadas para no duplicar código)
         const playerTabBar = `
             <div class="absolute bottom-0 w-full h-20 bg-slate-950/90 backdrop-blur-xl border-t border-white/5 flex justify-around items-center px-4 pb-4">
                 <div class="flex flex-col items-center gap-1 text-emerald-500 cursor-pointer" onclick="navigate('screen-home')">
@@ -651,7 +755,7 @@
                     <i class="fas fa-shopping-bag text-lg"></i>
                     <span class="text-[8px] font-bold uppercase">Store</span>
                 </div>
-                <div class="relative -mt-8 cursor-pointer active:scale-95 transition-transform" onclick="navigate('screen-home')">
+                <div class="relative -mt-8 cursor-pointer active:scale-95 transition-transform" onclick="navigate('screen-create')">
                     <div class="w-14 h-14 rs-gradient rounded-full flex items-center justify-center text-slate-950 shadow-lg shadow-emerald-500/40 border-4 border-slate-950">
                         <i class="fas fa-plus text-xl"></i>
                     </div>
@@ -687,13 +791,32 @@
         document.getElementById('tab-bar-player').innerHTML = playerTabBar;
         document.getElementById('tab-bar-owner').innerHTML = ownerTabBar;
 
+        // Función Cambio de Deporte
+        function setSport(sportType) {
+            currentSport = sportType;
+            const container = document.getElementById('app-container');
+            const btnFut = document.getElementById('btn-fut');
+            const btnPadel = document.getElementById('btn-padel');
+
+            if(sportType === 'padel') {
+                container.classList.add('app-padel');
+                btnPadel.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all bg-emerald-500 text-slate-950 uppercase";
+                btnFut.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 uppercase";
+            } else {
+                container.classList.remove('app-padel');
+                btnFut.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all bg-emerald-500 text-slate-950 uppercase";
+                btnPadel.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 uppercase";
+            }
+        }
+
         // Funciones de navegación
         function navigate(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
-            window.scrollTo(0,0);
+            // Hacer scroll top en la pantalla nueva
+            document.getElementById(screenId).scrollTop = 0;
         }
 
         // Cambio de Rol en Login
@@ -719,9 +842,24 @@
             }
         }
 
-        function startBooking(venueName) {
-            document.getElementById('booking-venue-name').innerText = venueName;
-            navigate('screen-booking');
+        function toggleInvite(btn) {
+            if(btn.innerText === "INVITAR") {
+                btn.innerText = "INVITADO";
+                btn.className = "bg-slate-700 text-slate-400 px-3 py-1 rounded-lg text-[10px] font-black uppercase btn-invite";
+            } else {
+                btn.innerText = "INVITAR";
+                btn.className = "bg-emerald-500 text-slate-900 px-3 py-1 rounded-lg text-[10px] font-black uppercase hover:bg-emerald-400 btn-invite";
+            }
+        }
+
+        // Modales
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if(modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            } else {
+                modal.classList.add('active');
+            }
         }
 
         function confirmPayment() {
