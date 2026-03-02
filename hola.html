@@ -86,11 +86,16 @@
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
 
+        /* Clases de Switch de Deporte */
         .only-padel { display: none; }
         .app-padel .only-padel { display: block; }
         .app-padel .only-football { display: none; }
         .app-padel .flex.only-padel { display: flex; }
         .app-padel .grid.only-padel { display: grid; }
+        
+        .inline-padel { display: none; }
+        .app-padel .inline-padel { display: inline; }
+        .app-padel .inline-football { display: none; }
         
         .store-item { display: flex; }
         .owner-tab-content, .tour-tab-content, .search-tab-content { display: none; }
@@ -144,6 +149,9 @@
     <!-- CONTENEDOR PRINCIPAL DEL CELULAR -->
     <div id="app-container" class="phone-mockup">
         <div class="notch"></div>
+        
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="absolute top-10 left-1/2 transform -translate-x-1/2 z-[300] flex flex-col gap-2 pointer-events-none w-[90%]"></div>
 
         <!-- ============================== -->
         <!-- SCREEN 0: SPORT SELECT PORTAL  -->
@@ -274,8 +282,8 @@
                         <i class="fas fa-bell text-slate-300 text-xl hover:text-emerald-400 transition-colors"></i>
                         <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-slate-950"></span>
                     </div>
-                    <!-- Avatar globalmente clickable -->
-                    <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer relative transition-all" id="home-profile-ring" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
+                    <!-- Avatar link to OWN profile -->
+                    <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer relative transition-all" id="home-profile-ring" onclick="navigate('screen-profile')">
                         <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfil">
                     </div>
                 </div>
@@ -313,14 +321,14 @@
                         <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:underline" onclick="navigate('screen-map')">Ver Mapa Real <i class="fas fa-map-marked-alt ml-1"></i></span>
                     </div>
                     <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                        <div onclick="startBooking('La Guacamaya')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('La Guacamaya', 'Fútbol 7')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="La Guacamaya">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">La Guacamaya</p>
                             <p class="text-[10px] text-emerald-400 font-bold uppercase">Fútbol 7 • Disponible</p>
                         </div>
-                        <div onclick="startBooking('Complejo Fray Luis')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Complejo Fray Luis', 'Fútbol 11')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Fray Luis">
                             </div>
@@ -337,14 +345,14 @@
                         <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:underline" onclick="navigate('screen-map')">Ver Mapa Real <i class="fas fa-map-marked-alt ml-1"></i></span>
                     </div>
                     <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                        <div onclick="startBooking('Los Naranjos')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Los Naranjos', 'Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Los Naranjos Pádel">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">Los Naranjos</p>
                             <p class="text-[10px] text-emerald-400 font-bold uppercase">Pádel • Cristal</p>
                         </div>
-                        <div onclick="startBooking('Capital Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Capital Pádel', 'Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Capital Padel">
                             </div>
@@ -551,7 +559,7 @@
                     
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="w-6 h-6 rounded-full overflow-hidden bg-slate-800 border border-emerald-500 cursor-pointer" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
+                            <div class="w-6 h-6 rounded-full overflow-hidden bg-slate-800 border border-emerald-500 cursor-pointer" onclick="navigate('screen-profile')">
                                 <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-full h-full object-cover">
                             </div>
                             <span class="text-sm font-bold text-white">Antoni (Tú)</span>
@@ -564,6 +572,91 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- SCREEN 6: PERFIL Y RANKING     -->
+        <!-- ============================== -->
+        <div id="screen-profile" class="screen hide-scrollbar p-6">
+             <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mt-8 mb-6 cursor-pointer w-fit hover:text-white">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+            
+            <div class="text-center mb-8">
+                <!-- STORIES + FOTO PERFIL -->
+                <div class="w-24 h-24 rounded-full border-4 border-emerald-500 mx-auto mb-4 shadow-xl shadow-emerald-500/20 relative transition-all duration-300 cursor-pointer" id="profile-img-ring" onclick="handleProfilePicClick()">
+                    <img id="main-profile-img" src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover rounded-full" alt="Perfil Antoni">
+                    <!-- Icono Añadir Storie -->
+                    <label for="story-upload" class="story-btn" id="story-upload-btn" onclick="event.stopPropagation()"><i class="fas fa-plus"></i></label>
+                    <input type="file" id="story-upload" class="hidden" accept="image/*" onchange="handleStoryUpload(this)">
+                </div>
+
+                <h2 class="text-3xl font-black italic uppercase tracking-tighter flex items-center justify-center gap-2">Antoni Messina <i class="fas fa-check-circle text-emerald-500 text-lg"></i></h2>
+                <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest mt-1">
+                    <span class="only-football">Fútbol 7 • Nivel Gold</span>
+                    <span class="only-padel">Pádel 4.5 • Lado Revés</span>
+                </p>
+            </div>
+
+            <!-- INSIGNIAS -->
+            <div class="space-y-2 mb-6">
+                <h3 class="font-black italic uppercase text-sm text-emerald-400 text-center">Tus Insignias</h3>
+                <div class="flex gap-3 justify-center">
+                    <div class="badge-trophy bg-gradient-to-br from-yellow-400 to-amber-600 px-3 py-2 rounded-xl flex flex-col items-center justify-center border border-yellow-200/50 w-20 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-shield-alt text-slate-900 text-lg mb-1 drop-shadow-md"></i>
+                        <span class="text-[8px] font-black uppercase text-slate-900 text-center leading-tight">El Muro</span>
+                    </div>
+                    <div class="badge-trophy bg-gradient-to-br from-slate-300 to-slate-400 px-3 py-2 rounded-xl flex flex-col items-center justify-center border border-white/80 w-20 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-stopwatch text-slate-900 text-lg mb-1 drop-shadow-md"></i>
+                        <span class="text-[8px] font-black uppercase text-slate-900 text-center leading-tight">Puntual</span>
+                    </div>
+                    <div class="badge-trophy bg-gradient-to-br from-emerald-400 to-teal-500 px-3 py-2 rounded-xl flex flex-col items-center justify-center border border-emerald-200/50 w-20 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-gem text-slate-900 text-lg mb-1 drop-shadow-md"></i>
+                        <span class="text-[8px] font-black uppercase text-slate-900 text-center leading-tight">Pagador</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <!-- Tarjeta interactiva de Estadísticas -->
+                <div class="rs-glass p-4 rounded-2xl text-center cursor-pointer hover:border-emerald-500/50 transition-colors group" onclick="toggleModal('stats-modal')">
+                    <i class="fas fa-chart-bar text-emerald-400 text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                    <div class="text-2xl font-black">
+                        <span class="only-football">42 Goles</span>
+                        <span class="only-padel">68% Win Rate</span>
+                    </div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Ver Detalles <i class="fas fa-search-plus ml-1"></i></div>
+                </div>
+                
+                <div class="rs-glass p-4 rounded-2xl text-center cursor-pointer hover:border-yellow-500/50 transition-colors group" onclick="toggleModal('reviews-modal')">
+                    <div class="flex justify-center gap-1 text-yellow-500 text-lg mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i>
+                    </div>
+                    <div class="text-2xl font-black group-hover:text-yellow-500 transition-colors">4.8</div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Ver Comentarios <i class="fas fa-hand-pointer ml-1"></i></div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="font-black italic uppercase text-sm border-b border-white/10 pb-2">Reputación Quadrala</h3>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-slate-300">Asistencia / Puntualidad</span>
+                    <span class="text-emerald-400 font-bold">100%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-slate-300">Pagos a tiempo</span>
+                    <span class="text-emerald-400 font-bold">100%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-slate-300">No-Shows (Embarques)</span>
+                    <span class="text-slate-500 font-bold">0</span>
+                </div>
+            </div>
+            
+            <button onclick="logout()" class="w-full bg-red-500/10 text-red-500 py-3 rounded-xl font-bold text-xs mt-8 border border-red-500/20 hover:bg-red-500/20 transition-colors uppercase tracking-widest">
+                Cerrar Sesión
+            </button>
+            <div class="h-10"></div>
         </div>
 
         <!-- ============================== -->
@@ -598,33 +691,50 @@
                 <!-- PRODUCTOS FÚTBOL -->
                 <div class="grid grid-cols-2 gap-4 only-football" id="store-grid-football">
                     <!-- Producto Calzado -->
-                    <div class="store-item cat-calzado bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col">
+                    <div class="store-item cat-calzado bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Botas de Fútbol Elite F5', 45.00, 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=400', 'Botas profesionales con tacos de goma diseñadas para tracción óptima en césped sintético. Máxima comodidad y control de balón.')">
                         <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase z-10">Nuevo</div>
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=400" alt="Botas" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform">
+                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=400" alt="Botas" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Calzado Pro</p>
                             <h4 class="text-white text-xs font-black leading-tight mb-2">Botas de Fútbol Elite F5</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$45.00</span>
-                            <button onclick="openCheckout('Botas de Fútbol Elite F5', 45.00)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Botas de Fútbol Elite F5', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
 
                     <!-- Producto Equipos -->
-                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col">
+                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Balón Oficial de Liga', 30.00, 'https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&q=80&w=400', 'Balón termo-sellado de alta durabilidad, peso reglamentario y textura anti-deslizante para partidos competitivos.')">
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&q=80&w=400" alt="Balón" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform">
+                            <img src="https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&q=80&w=400" alt="Balón" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Equipamiento</p>
                             <h4 class="text-white text-xs font-black leading-tight mb-2">Balón Oficial de Liga</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$30.00</span>
-                            <button onclick="openCheckout('Balón Oficial de Liga', 30.00)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Balón Oficial de Liga', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto Textil -->
+                    <div class="store-item cat-textil bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col col-span-2" onclick="openProductModal('Camiseta Dry-Fit Deportiva', 25.50, 'https://images.unsplash.com/photo-1580087433295-ab2600c1030e?auto=format&fit=crop&q=80&w=600', 'Camiseta de entrenamiento transpirable con tecnología de secado rápido, corte atlético y materiales ligeros.')">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase z-10">-15% Dto</div>
+                        <div class="h-32 bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center relative">
+                            <img src="https://images.unsplash.com/photo-1580087433295-ab2600c1030e?auto=format&fit=crop&q=80&w=600" alt="Camiseta" class="object-cover h-full w-full opacity-70 group-hover:scale-105 transition-transform pointer-events-none">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent pointer-events-none"></div>
+                            <h4 class="absolute bottom-2 left-3 text-white font-black italic uppercase text-lg pointer-events-none">Camiseta Dry-Fit Deportiva</h4>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-emerald-400 font-black text-lg">$25.50</span>
+                                <span class="text-slate-500 text-[10px] line-through ml-2">$30.00</span>
+                            </div>
+                            <button onclick="addToCart('Camiseta Dry-Fit Deportiva', event)" class="bg-white text-slate-900 px-4 py-2 rounded-lg font-black text-xs uppercase hover:bg-emerald-400 transition-colors"><i class="fas fa-cart-plus mr-1"></i> Añadir</button>
                         </div>
                     </div>
                 </div>
@@ -632,36 +742,37 @@
                 <!-- PRODUCTOS PÁDEL / GENERICOS -->
                 <div class="grid grid-cols-2 gap-4 only-padel" id="store-grid-padel">
                     <!-- Producto Accesorios (Bolso) -->
-                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col">
+                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Bolso Deportivo Multiuso', 35.00, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400', 'Bolso de alta capacidad con compartimento especial para palas, zapatos y ropa húmeda. Material resistente al agua.')">
                         <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase z-10">Pro</div>
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                             <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400" alt="Bolso Deportivo" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform">
+                             <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400" alt="Bolso Deportivo" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Accesorios</p>
                             <h4 class="text-white text-xs font-black leading-tight mb-2">Bolso Deportivo Multiuso</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$35.00</span>
-                            <button onclick="openCheckout('Bolso Deportivo Multiuso', 35.00)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Bolso Deportivo Multiuso', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
 
                     <!-- Producto Textil -->
-                    <div class="store-item cat-textil bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col">
+                    <div class="store-item cat-textil bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Short Court Elite', 18.00, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=400', 'Short ultraligero con bolsillos profundos diseñados específicamente para guardar pelotas de pádel con seguridad.')">
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=400" alt="Short Deportivo" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=400" alt="Short Deportivo" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Textil</p>
                             <h4 class="text-white text-xs font-black leading-tight mb-2">Short Court Elite</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$18.00</span>
-                            <button onclick="openCheckout('Short Court Elite', 18.00)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Short Court Elite', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -753,30 +864,83 @@
             </header>
 
             <div class="px-6 pt-6 pb-24">
-                <!-- TAB MÉTRICAS -->
-                <div id="owner-tab-metrics" class="owner-tab-content active space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
+                <!-- TAB MÉTRICAS (EXPANDIDO) -->
+                <div id="owner-tab-metrics" class="owner-tab-content active space-y-4">
+                    <div class="flex justify-between items-center bg-slate-800/50 p-2 rounded-xl border border-white/5">
+                        <span class="text-xs font-bold px-2">Filtro de Tiempo:</span>
+                        <select class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-1.5 text-white outline-none focus:border-emerald-500">
+                            <option>Hoy</option>
+                            <option>Este Mes</option>
+                            <option>Este Trimestre</option>
+                            <option>Este Año</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
                         <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-4 rounded-2xl border border-slate-700 shadow-lg">
-                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Ventas Hoy</p>
-                            <p class="text-3xl font-black text-emerald-400 italic">$480.00</p>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Ventas</p>
+                            <p class="text-2xl font-black text-emerald-400 italic">$480.00</p>
                         </div>
                         <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-4 rounded-2xl border border-slate-700 shadow-lg">
-                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Ocupación Mensual</p>
-                            <p class="text-3xl font-black text-white italic">82%</p>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold mb-1">Ocupación</p>
+                            <p class="text-2xl font-black text-white italic">90%</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] text-slate-400 uppercase font-bold mb-1">Meta Trimestre</p>
+                            <p class="text-lg font-black text-white">$15,000</p>
+                            <div class="w-full h-1 bg-slate-700 rounded-full mt-2"><div class="w-[45%] h-full bg-emerald-500 rounded-full"></div></div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[9px] text-slate-400 uppercase font-bold mb-1">Meta Anual</p>
+                            <p class="text-lg font-black text-white">$60,000</p>
+                            <div class="w-full h-1 bg-slate-700 rounded-full mt-2"><div class="w-[12%] h-full bg-emerald-500 rounded-full"></div></div>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 text-center">
+                            <p class="text-[9px] text-slate-400 uppercase font-bold mb-1">Jugadores Nuevos</p>
+                            <p class="text-xl font-black text-emerald-400">+15</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 text-center">
+                            <p class="text-[9px] text-slate-400 uppercase font-bold mb-1">Recurrentes</p>
+                            <p class="text-xl font-black text-blue-400">42</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 col-span-2 flex justify-between items-center">
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase font-bold">Canchas Activas</p>
+                                <p class="text-sm font-black text-white"><span class="text-emerald-500">3 Reservadas</span> | <span class="text-slate-500">1 Libre</span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[9px] text-slate-400 uppercase font-bold">Comunidad App</p>
+                                <p class="text-sm font-black text-yellow-500">1,250</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB RESERVAS (GRUPOS) -->
+                <!-- TAB RESERVAS (GRUPOS EXPANDIDO) -->
                 <div id="owner-tab-bookings" class="owner-tab-content space-y-4">
-                    <h3 class="font-black italic uppercase text-sm mb-2">Reservas Activas (Hoy)</h3>
+                    <h3 class="font-black italic uppercase text-sm mb-2">Monitor de Canchas</h3>
+                    
+                    <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-emerald-500 shadow-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="font-black text-white italic uppercase block">Cancha 1</span>
+                                <span class="text-xs text-slate-400">17:00 - 18:30</span>
+                            </div>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded font-black uppercase">PAGADO</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-white/10">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Juan" class="w-6 h-6 rounded-full bg-slate-700" />
+                            <span class="text-xs font-bold text-slate-300">Capitán: Juan P.</span>
+                        </div>
+                    </div>
+
                     <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-yellow-500 shadow-lg">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-black text-white italic uppercase block">Cancha 2</span>
                                 <span class="text-xs text-slate-400">19:00 - 20:30</span>
                             </div>
-                            <span id="owner-status-badge" class="text-[9px] bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded font-black uppercase">Espera (7/10)</span>
+                            <span id="owner-status-badge" class="text-[9px] bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded font-black uppercase">Espera Pagos (7/10)</span>
                         </div>
                         <div class="flex items-center justify-between pt-2 border-t border-white/10">
                             <div class="flex items-center gap-2 cursor-pointer" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
@@ -786,10 +950,38 @@
                             <button onclick="toggleModal('owner-approval-modal')" class="text-[9px] bg-slate-700 hover:bg-emerald-500 hover:text-slate-900 text-white px-2 py-1 rounded font-bold uppercase transition-colors">Aprobar Manual</button>
                         </div>
                     </div>
+                    
+                    <div class="bg-slate-800/80 p-4 rounded-xl border-l-4 border-blue-500 shadow-lg">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="font-black text-white italic uppercase block">Cancha 3</span>
+                                <span class="text-xs text-slate-400">19:00 - 20:30</span>
+                            </div>
+                            <span class="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-1 rounded font-black uppercase animate-pulse">EN JUEGO</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-white/10">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Diego" class="w-6 h-6 rounded-full bg-slate-700" />
+                            <span class="text-xs font-bold text-slate-300">Capitán: Diego R.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800/40 p-4 rounded-xl border-l-4 border-slate-600 opacity-60">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-black text-white italic uppercase block">Cancha 4</span>
+                                <span class="text-xs text-slate-400">21:00 - 22:30</span>
+                            </div>
+                            <span class="text-[9px] bg-slate-700 text-slate-300 px-2 py-1 rounded font-black uppercase">DISPONIBLE</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- TAB BASE DE DATOS (USUARIOS & RANKING) -->
                 <div id="owner-tab-users" class="owner-tab-content space-y-4">
+                    <button onclick="toggleModal('campaign-modal')" class="w-full bg-emerald-500 text-slate-950 py-3 rounded-xl text-xs font-black uppercase shadow-lg shadow-emerald-500/20 mb-2 flex items-center justify-center gap-2 hover:bg-emerald-400">
+                        <i class="fas fa-bullhorn"></i> Lanzar Promoción / Cupones
+                    </button>
+                    
                     <h3 class="font-black italic uppercase text-sm mb-2 text-emerald-400">Top Clientes del Mes (Ballenas)</h3>
                     <div class="bg-slate-800/40 rounded-2xl border border-white/5 divide-y divide-white/5">
                         <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
@@ -803,13 +995,33 @@
                             </div>
                             <i class="fas fa-crown text-yellow-500 text-xs"></i>
                         </div>
-                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('Luis Silva', 'Luis', 'Luis', '4.2', 'Amigo')">
+                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('other', 'Luis Silva', 'Luis', '4.2', 'Cliente Activo')">
                             <div class="flex items-center gap-3">
                                 <div class="font-black text-xl text-slate-300 w-4">2</div>
                                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Luis" class="w-8 h-8 rounded-full bg-slate-700" />
                                 <div>
                                     <p class="text-sm font-bold text-white">Luis Silva</p>
                                     <p class="text-[10px] text-slate-400">12 reservas • $480 generados</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('other', 'José Pérez', 'Jose', '4.8', 'Cliente Activo')">
+                            <div class="flex items-center gap-3">
+                                <div class="font-black text-xl text-slate-400 w-4">3</div>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jose" class="w-8 h-8 rounded-full bg-slate-700" />
+                                <div>
+                                    <p class="text-sm font-bold text-white">José Pérez</p>
+                                    <p class="text-[10px] text-slate-400">8 reservas • $320 generados</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('other', 'Miguel A.', 'Miguel', '4.9', 'Cliente Activo')">
+                            <div class="flex items-center gap-3">
+                                <div class="font-black text-xl text-slate-500 w-4">4</div>
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Miguel" class="w-8 h-8 rounded-full bg-slate-700" />
+                                <div>
+                                    <p class="text-sm font-bold text-white">Miguel A.</p>
+                                    <p class="text-[10px] text-slate-400">6 reservas • $240 generados</p>
                                 </div>
                             </div>
                         </div>
@@ -1111,9 +1323,12 @@
                         <div class="text-[8px] text-slate-400 uppercase font-bold">Reviews</div>
                     </div>
                     <div class="text-center cursor-pointer hover:scale-110 transition-transform" onclick="toggleModal('stats-modal')">
-                        <i class="fas fa-futbol text-emerald-500 text-xl"></i>
-                        <div class="text-lg font-black text-white" id="uni-prof-goals">24</div>
-                        <div class="text-[8px] text-slate-400 uppercase font-bold">Goles</div>
+                        <i class="fas fa-chart-bar text-emerald-500 text-xl"></i>
+                        <div class="text-lg font-black text-white">
+                            <span class="only-football inline-football" id="uni-prof-goals">42</span><span class="only-football inline-football text-xs ml-1">Goles</span>
+                            <span class="only-padel inline-padel" id="uni-prof-winrate">68%</span><span class="only-padel inline-padel text-xs ml-1">Win</span>
+                        </div>
+                        <div class="text-[8px] text-slate-400 uppercase font-bold">Stats</div>
                     </div>
                 </div>
                 
@@ -1140,6 +1355,72 @@
             </div>
         </div>
 
+        <!-- Modal Detalles de Producto (Tienda) -->
+        <div id="product-modal" class="modal-overlay pointer-events-auto" onclick="if(event.target===this) toggleModal('product-modal')">
+            <div class="bg-slate-900 w-[90%] rounded-[2rem] p-6 border border-slate-700 shadow-2xl relative">
+                <button onclick="toggleModal('product-modal')" class="absolute top-4 right-4 text-slate-500 p-2 hover:text-white"><i class="fas fa-times"></i></button>
+                <img id="pm-img" src="" class="w-full h-40 object-cover rounded-xl mb-4 border border-white/5">
+                <h3 id="pm-title" class="font-black italic uppercase text-xl text-white">Producto</h3>
+                <p id="pm-price" class="text-emerald-400 font-black text-lg mb-2">$0.00</p>
+                <p id="pm-desc" class="text-xs text-slate-400 mb-4 leading-relaxed">Descripción del producto de alta calidad, diseñado para mejorar tu rendimiento en la cancha.</p>
+                
+                <div class="mb-4">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Color Seleccionado</p>
+                    <div class="flex gap-2">
+                        <div class="w-6 h-6 rounded-full bg-slate-100 border-2 border-emerald-500 cursor-pointer"></div>
+                        <div class="w-6 h-6 rounded-full bg-slate-800 border-2 border-transparent cursor-pointer"></div>
+                        <div class="w-6 h-6 rounded-full bg-blue-600 border-2 border-transparent cursor-pointer"></div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Cantidad</p>
+                    <div class="flex items-center gap-4 bg-slate-800 w-fit px-4 py-2 rounded-xl border border-white/5">
+                        <button onclick="document.getElementById('pm-qty').innerText = Math.max(1, parseInt(document.getElementById('pm-qty').innerText)-1)" class="text-slate-400 hover:text-white"><i class="fas fa-minus"></i></button>
+                        <span id="pm-qty" class="font-bold text-white">1</span>
+                        <button onclick="document.getElementById('pm-qty').innerText = parseInt(document.getElementById('pm-qty').innerText)+1" class="text-slate-400 hover:text-white"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="openCheckout(document.getElementById('pm-title').innerText, parseFloat(document.getElementById('pm-price').innerText.replace('$',''))); toggleModal('product-modal');" class="flex-1 bg-slate-800 text-white py-3 rounded-xl text-xs font-black uppercase hover:bg-slate-700 transition-colors">Comprar Ya</button>
+                    <button onclick="addToCart(document.getElementById('pm-title').innerText, event); toggleModal('product-modal');" class="flex-[1.5] bg-emerald-500 text-slate-900 py-3 rounded-xl text-xs font-black uppercase hover:bg-emerald-400 shadow-lg shadow-emerald-500/20 transition-colors"><i class="fas fa-cart-plus mr-1"></i> Carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Campaña Owner -->
+        <div id="campaign-modal" class="modal-overlay pointer-events-auto" onclick="if(event.target===this) toggleModal('campaign-modal')">
+            <div class="bg-slate-900 w-[90%] rounded-[2rem] p-6 border border-emerald-500/30 shadow-2xl relative">
+                <button onclick="toggleModal('campaign-modal')" class="absolute top-4 right-4 text-slate-500 p-2 hover:text-white"><i class="fas fa-times"></i></button>
+                <div class="text-center mb-4">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-2 text-emerald-500 text-2xl"><i class="fas fa-bullhorn"></i></div>
+                    <h3 class="font-black italic uppercase text-xl text-white">Lanzar Promoción</h3>
+                    <p class="text-xs text-slate-400">Envía cupones a tu base de datos</p>
+                </div>
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase">Audiencia Objetivo</label>
+                        <select class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 px-3 text-xs text-white outline-none mt-1">
+                            <option>Todos los usuarios (1,250)</option>
+                            <option>Usuarios Nuevos (15)</option>
+                            <option>Ballenas / VIPs (42)</option>
+                            <option>Inactivos +30 días (310)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase">Tipo de Descuento</label>
+                        <select class="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 px-3 text-xs text-white outline-none mt-1">
+                            <option>10% en Horarios Valle</option>
+                            <option>20% en próxima reserva</option>
+                            <option>$5 Off (Cupón fijo)</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="sendCampaign()" class="w-full bg-emerald-500 text-slate-900 py-3 rounded-xl text-xs font-black uppercase hover:bg-emerald-400 shadow-lg shadow-emerald-500/20 transition-colors"><i class="fas fa-paper-plane mr-1"></i> Enviar a Jugadores</button>
+            </div>
+        </div>
+
         <!-- Modal Notificaciones -->
         <div id="notifications-modal" class="modal-overlay pointer-events-auto" onclick="if(event.target===this) toggleModal('notifications-modal')">
             <div class="bg-slate-900 w-[90%] rounded-[2rem] p-6 border border-slate-700 absolute top-20 shadow-2xl">
@@ -1149,7 +1430,7 @@
                 </div>
                 <div class="space-y-3">
                     <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-emerald-500 cursor-pointer hover:bg-slate-800 transition-colors">
-                        <p class="text-sm text-white leading-tight"><b>Luis Silva</b> te ha invitado a una partida en <span class="only-football">La Guacamaya</span><span class="only-padel">Los Naranjos</span>.</p>
+                        <p class="text-sm text-white leading-tight"><b>Luis Silva</b> te ha invitado a una partida en <span class="only-football inline-football">La Guacamaya</span><span class="only-padel inline-padel">Los Naranjos</span>.</p>
                         <p class="text-[10px] text-emerald-400 mt-2 font-bold uppercase">Hace 5 min</p>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-yellow-500">
@@ -1181,7 +1462,7 @@
                         <li class="flex items-start gap-3"><i class="fas fa-palette text-yellow-500 mt-1 text-lg"></i><p class="text-sm text-slate-300"><b class="text-white">Perfil Custom:</b> Destaca tu avatar y badges.</p></li>
                         <li class="flex items-start gap-3"><i class="fas fa-eye text-yellow-500 mt-1 text-lg"></i><p class="text-sm text-slate-300"><b class="text-white">Scouting:</b> Sé visto por equipos élite.</p></li>
                     </ul>
-                    <button class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 py-4 rounded-xl font-black uppercase text-sm shadow-lg shadow-yellow-500/20" onclick="activatePro()">
+                    <button class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 py-4 rounded-xl font-black uppercase text-sm shadow-lg shadow-yellow-500/20 transition-colors" onclick="activatePro()">
                         Suscribirse $4.99/mes
                     </button>
                 </div>
@@ -1200,17 +1481,17 @@
                 </div>
                 <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-2 no-scrollbar" id="chat-box">
                     <div class="chat-bubble chat-received"><b>José:</b> Epale! Lleguen 10 min antes para calentar.</div>
-                    <div class="chat-bubble chat-received"><b>Luis:</b> Activo, yo llevo el balón RS.</div>
+                    <div class="chat-bubble chat-received"><b>Luis:</b> Activo, yo llevo la pelota.</div>
                     <div class="chat-bubble chat-sent">Perfecto. Yo ya pagué mi parte de la vaca.</div>
                 </div>
                 
                 <!-- Input de chat con iconos -->
                 <form onsubmit="sendChatMessage(event)" class="p-4 bg-slate-950 border-t border-white/5 flex gap-2 pb-8 items-center">
-                    <div class="flex-1 bg-slate-800 rounded-full flex items-center px-4 py-2 gap-2 border border-transparent focus-within:border-emerald-500">
-                        <i class="fas fa-face-smile text-slate-400 cursor-pointer hover:text-white text-lg"></i>
-                        <i class="fas fa-sticky-note text-slate-400 cursor-pointer hover:text-white text-lg"></i>
-                        <input type="text" id="chat-input" placeholder="Escribe un mensaje..." class="flex-1 bg-transparent text-sm text-white outline-none px-2">
-                        <i class="fas fa-microphone text-emerald-400 cursor-pointer hover:text-emerald-300 text-lg"></i>
+                    <div class="flex-1 bg-slate-800 rounded-full flex items-center px-4 py-2 gap-2 border border-transparent focus-within:border-emerald-500 transition-colors">
+                        <i class="fas fa-face-smile text-slate-400 cursor-pointer hover:text-white text-lg transition-colors"></i>
+                        <i class="fas fa-paperclip text-slate-400 cursor-pointer hover:text-white text-lg transition-colors"></i>
+                        <input type="text" id="chat-input" placeholder="Mensaje..." class="flex-1 bg-transparent text-sm text-white outline-none px-2 w-full">
+                        <i class="fas fa-microphone text-emerald-400 cursor-pointer hover:text-emerald-300 text-lg transition-colors"></i>
                     </div>
                     <button type="submit" class="bg-emerald-500 text-slate-900 w-10 h-10 rounded-full flex items-center justify-center shrink-0 hover:bg-emerald-400 transition-colors">
                         <i class="fas fa-paper-plane"></i>
@@ -1277,8 +1558,8 @@
                     </div>
 
                     <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 only-padel">
-                        <span class="text-sm text-slate-300 font-bold">Juegos Ganados</span>
-                        <span class="text-xl font-black text-emerald-400">38</span>
+                        <span class="text-sm text-slate-300 font-bold">Torneos Jugados</span>
+                        <span class="text-xl font-black text-emerald-400">12</span>
                     </div>
 
                     <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5">
@@ -1303,34 +1584,34 @@
                 <p class="text-xs text-slate-400 text-center mb-6">Mejores jugadores en tu zona</p>
                 
                 <div class="space-y-3">
-                    <div class="flex items-center justify-between bg-yellow-500/10 p-3 rounded-xl border border-yellow-500/30 cursor-pointer hover:bg-yellow-500/20" onclick="showGlobalProfile('other', 'Alejandro G.', 'Alejandro', '5.0', 'Delantero / MVP')">
+                    <div class="flex items-center justify-between bg-yellow-500/10 p-3 rounded-xl border border-yellow-500/30 cursor-pointer hover:bg-yellow-500/20 transition-colors" onclick="showGlobalProfile('other', 'Alejandro G.', 'Alejandro', '5.0', 'MVP de la Zona')">
                         <div class="flex items-center gap-3">
                             <span class="font-black text-yellow-500 text-lg w-4">1</span>
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alejandro" class="w-10 h-10 rounded-full bg-slate-700" />
                             <div>
                                 <p class="text-sm font-bold text-white">Alejandro G.</p>
-                                <p class="text-[10px] text-yellow-500">5.0 <i class="fas fa-star"></i> • 120 Goles</p>
+                                <p class="text-[10px] text-yellow-500">5.0 <i class="fas fa-star"></i> • <span class="only-football inline-football">120 Goles</span><span class="only-padel inline-padel">85% Win</span></p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between bg-slate-800/40 p-3 rounded-xl border border-white/5 cursor-pointer hover:bg-slate-800" onclick="showGlobalProfile('other', 'Roberto Capi', 'Carlos', '4.9', 'Medio / Pro')">
+                    <div class="flex items-center justify-between bg-slate-800/40 p-3 rounded-xl border border-white/5 cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('other', 'Roberto Capi', 'Carlos', '4.9', 'Jugador Pro')">
                         <div class="flex items-center gap-3">
                             <span class="font-black text-slate-300 text-lg w-4">2</span>
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos" class="w-10 h-10 rounded-full bg-slate-700" />
                             <div>
                                 <p class="text-sm font-bold text-white">Roberto (Capi)</p>
-                                <p class="text-[10px] text-yellow-500">4.9 <i class="fas fa-star"></i> • 85 Goles</p>
+                                <p class="text-[10px] text-yellow-500">4.9 <i class="fas fa-star"></i> • <span class="only-football inline-football">85 Goles</span><span class="only-padel inline-padel">72% Win</span></p>
                             </div>
                         </div>
                     </div>
-                    <!-- Antoni -->
-                    <div class="flex items-center justify-between bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/30 mt-4 cursor-pointer hover:bg-emerald-500/20" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
+                    <!-- Antoni (Tú) -->
+                    <div class="flex items-center justify-between bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/30 mt-4 cursor-pointer hover:bg-emerald-500/20 transition-colors" onclick="toggleModal('ranking-modal'); navigate('screen-profile')">
                         <div class="flex items-center gap-3">
                             <span class="font-black text-emerald-500 text-lg w-4">8</span>
                             <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-10 h-10 rounded-full bg-slate-700 object-cover" />
                             <div>
                                 <p class="text-sm font-bold text-white">Antoni Messina (Tú)</p>
-                                <p class="text-[10px] text-emerald-500">4.8 <i class="fas fa-star"></i> • 42 Goles</p>
+                                <p class="text-[10px] text-emerald-500">4.8 <i class="fas fa-star"></i> • <span class="only-football inline-football">42 Goles</span><span class="only-padel inline-padel">68% Win</span></p>
                             </div>
                         </div>
                     </div>
@@ -1345,10 +1626,10 @@
                 <h3 class="font-black italic uppercase text-xl text-white mb-2 text-center">Liquidar Reserva</h3>
                 <p class="text-xs text-slate-400 text-center mb-6">Confirma recepción de pago de Cancha 2.</p>
                 <div class="space-y-3 mb-6">
-                    <button onclick="confirmOwnerApproval()" class="w-full bg-slate-800 border border-slate-700 py-3 rounded-xl text-sm font-bold text-white hover:border-emerald-500 flex justify-between px-4 items-center">Efectivo Físico <i class="fas fa-money-bill-wave text-emerald-500"></i></button>
-                    <button onclick="confirmOwnerApproval()" class="w-full bg-slate-800 border border-slate-700 py-3 rounded-xl text-sm font-bold text-white hover:border-emerald-500 flex justify-between px-4 items-center">Zelle <i class="fab fa-cc-stripe text-blue-400"></i></button>
+                    <button onclick="confirmOwnerApproval()" class="w-full bg-slate-800 border border-slate-700 py-3 rounded-xl text-sm font-bold text-white hover:border-emerald-500 flex justify-between px-4 items-center transition-colors">Efectivo Físico <i class="fas fa-money-bill-wave text-emerald-500"></i></button>
+                    <button onclick="confirmOwnerApproval()" class="w-full bg-slate-800 border border-slate-700 py-3 rounded-xl text-sm font-bold text-white hover:border-emerald-500 flex justify-between px-4 items-center transition-colors">Zelle <i class="fab fa-cc-stripe text-blue-400"></i></button>
                 </div>
-                <button onclick="toggleModal('owner-approval-modal')" class="w-full text-slate-500 py-2 text-xs font-bold uppercase hover:text-white">Cancelar</button>
+                <button onclick="toggleModal('owner-approval-modal')" class="w-full text-slate-500 py-2 text-xs font-bold uppercase hover:text-white transition-colors">Cancelar</button>
             </div>
         </div>
 
@@ -1357,7 +1638,7 @@
                 <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-900 text-3xl"><i class="fas fa-check"></i></div>
                 <h3 class="text-xl font-black italic uppercase mb-2 text-white">Pago Exitoso</h3>
                 <p class="text-sm text-slate-400 mb-6">Tu cuota procesada.</p>
-                <button onclick="closePaymentModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl uppercase text-xs hover:bg-emerald-400">Ver Estado</button>
+                <button onclick="closePaymentModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl uppercase text-xs hover:bg-emerald-400 transition-colors">Ver Estado</button>
             </div>
         </div>
 
@@ -1366,7 +1647,7 @@
                 <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-900 text-3xl"><i class="fas fa-shopping-bag"></i></div>
                 <h3 class="text-xl font-black italic uppercase mb-2 text-white">Pedido Creado</h3>
                 <p class="text-sm text-slate-400 mb-6">Tu compra está procesada.</p>
-                <button onclick="closeStoreSuccessModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl uppercase text-xs hover:bg-emerald-400">Volver a Tienda</button>
+                <button onclick="closeStoreSuccessModal()" class="w-full bg-emerald-500 text-slate-900 font-bold py-3 rounded-xl uppercase text-xs hover:bg-emerald-400 transition-colors">Volver a Tienda</button>
             </div>
         </div>
 
@@ -1455,24 +1736,43 @@
             }
         }
 
-        // --- MODAL PERFIL GLOBAL (El Click en cualquier foto) ---
+        // --- SISTEMA DE TOASTS ---
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `bg-emerald-500 text-slate-900 px-6 py-3 rounded-full font-bold text-sm shadow-xl shadow-emerald-500/20 transform transition-all duration-300 -translate-y-10 opacity-0 flex items-center justify-center gap-2 w-full`;
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('-translate-y-10', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('-translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- MODAL PERFIL GLOBAL (Para OTROS usuarios, no "yo") ---
         function showGlobalProfile(type, name, seed, rating, roleText) {
             document.getElementById('uni-prof-name').innerHTML = `${name} <i class="fas fa-check-circle text-emerald-500 text-sm"></i>`;
             document.getElementById('uni-prof-desc').innerText = roleText;
             document.getElementById('uni-prof-rating').innerText = rating;
             
-            // Setear Goles/Win rate random para el mockup
             document.getElementById('uni-prof-goals').innerText = type === 'me' ? '42' : Math.floor(Math.random() * 100) + 10;
+            document.getElementById('uni-prof-winrate').innerText = type === 'me' ? '68%' : (Math.floor(Math.random() * 40) + 50) + '%';
             
             const imgEl = document.getElementById('uni-prof-img');
-            if (seed === 'me') {
+            if(seed === 'me') {
                 imgEl.src = "https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=200&auto=format&fit=crop";
             } else {
                 imgEl.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
             }
 
-            // Mostrar/Ocultar botones
-            if (type === 'me') {
+            if(type === 'me') {
                 document.getElementById('uni-prof-add').style.display = 'none';
                 document.getElementById('uni-prof-logout').style.display = 'block';
             } else {
@@ -1480,7 +1780,6 @@
                 document.getElementById('uni-prof-logout').style.display = 'none';
             }
 
-            // Si está dentro del buscador de jugadores, cerrar ese modal primero para que no se superpongan
             document.getElementById('search-players-modal').classList.remove('active');
             
             toggleModal('universal-profile-modal');
@@ -1602,17 +1901,20 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        // --- OWNER APPROVAL ---
+        // --- OWNER APPROVAL & CAMPAIGNS ---
         function confirmOwnerApproval() {
             toggleModal('owner-approval-modal');
             document.getElementById('owner-status-badge').innerText = "PAGADO";
             document.getElementById('owner-status-badge').className = "text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded font-black uppercase";
-            alert("Reserva liquidada manualmente con éxito.");
+            showToast("Reserva liquidada manualmente con éxito.");
+        }
+        function sendCampaign() {
+            toggleModal('campaign-modal');
+            showToast("Promoción enviada a los usuarios seleccionados.");
         }
 
         // --- AUTH ---
         function logout() { 
-            // Cerrar cualquier modal que este abierto (ej. el perfil universal)
             document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
             currentRole = 'player';
             isPro = false;
@@ -1651,7 +1953,7 @@
             matchPlayers.forEach((p, idx) => {
                 if(p.isMe) {
                     html += `<div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-emerald-500/30">
-                        <div class="flex items-center gap-3 cursor-pointer" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')"><img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover border border-emerald-500"><span class="text-sm font-bold text-white hover:underline">${p.name}</span></div><i class="fas fa-check-circle text-emerald-500"></i></div>`;
+                        <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('screen-profile')"><img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover border border-emerald-500"><span class="text-sm font-bold text-white hover:underline">${p.name}</span></div><i class="fas fa-check-circle text-emerald-500"></i></div>`;
                 } else {
                     html += `<div class="flex items-center justify-between rs-glass p-3 rounded-xl border border-white/5 animate-fadeIn">
                         <div class="flex items-center gap-3 cursor-pointer" onclick="showGlobalProfile('other', '${p.name}', '${p.seed}', '4.5', 'Jugador')"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${p.seed}" class="w-8 h-8 rounded-full bg-slate-800" /><span class="text-sm font-bold text-white hover:underline">${p.name}</span></div>
@@ -1715,8 +2017,20 @@
             document.querySelectorAll('.store-filter-btn').forEach(b => { b.className = "store-filter-btn bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border border-white/5"; });
             btn.className = "store-filter-btn bg-emerald-500 text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider";
             document.querySelectorAll('.store-item').forEach(item => {
-                if (category === 'all' || item.classList.contains('cat-' + category)) { item.style.display = 'flex'; } else { item.style.display = 'none'; }
+                if (category === 'all' || item.classList.contains('cat-' + category)) { item.classList.remove('hidden-item'); } else { item.classList.add('hidden-item'); }
             });
+        }
+        function openProductModal(name, price, imgUrl, desc) {
+            document.getElementById('pm-title').innerText = name;
+            document.getElementById('pm-price').innerText = "$" + price.toFixed(2);
+            document.getElementById('pm-img').src = imgUrl;
+            document.getElementById('pm-desc').innerText = desc;
+            document.getElementById('pm-qty').innerText = "1";
+            toggleModal('product-modal');
+        }
+        function addToCart(name, event) {
+            if(event) event.stopPropagation(); // Evita abrir el modal si le damos al "+" directo
+            showToast(name + " agregado al carrito");
         }
         function openCheckout(productName, price) {
             document.getElementById('checkout-item-name').innerText = productName;
