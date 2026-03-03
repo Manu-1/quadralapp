@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadrala App - Interactive Demo</title>
+    <title>Quadrala App - Interactive Demo Final</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -86,16 +86,14 @@
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
         .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
 
-        /* Clases de Switch de Deporte */
-        .only-padel { display: none; }
-        .app-padel .only-padel { display: block; }
-        .app-padel .only-football { display: none; }
-        .app-padel .flex.only-padel { display: flex; }
-        .app-padel .grid.only-padel { display: grid; }
-        
-        .inline-padel { display: none; }
-        .app-padel .inline-padel { display: inline; }
-        .app-padel .inline-football { display: none; }
+        /* Clases de Switch de Deporte Robustas (Aplica al body entero) */
+        .only-padel, .inline-padel { display: none !important; }
+        .only-football { display: block !important; }
+        .inline-football { display: inline-block !important; }
+
+        body.app-padel .only-padel { display: block !important; }
+        body.app-padel .inline-padel { display: inline-block !important; }
+        body.app-padel .only-football, body.app-padel .inline-football { display: none !important; }
         
         .store-item { display: flex; }
         .owner-tab-content, .tour-tab-content, .search-tab-content { display: none; }
@@ -116,7 +114,7 @@
             border: 3px solid #0f172a; cursor: pointer; z-index: 20; font-size: 12px;
         }
         .has-story {
-            border-color: #facc15 !important;
+            border-color: #facc15 !important; /* Amarillo brillante */
             padding: 3px;
             animation: pulse-ring 2s infinite;
         }
@@ -282,8 +280,8 @@
                         <i class="fas fa-bell text-slate-300 text-xl hover:text-emerald-400 transition-colors"></i>
                         <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-slate-950"></span>
                     </div>
-                    <!-- Avatar link to OWN profile -->
-                    <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer relative transition-all" id="home-profile-ring" onclick="navigate('screen-profile')">
+                    <!-- Avatar link to OWN profile and View Story -->
+                    <div class="w-10 h-10 rounded-full border-2 border-emerald-500 overflow-hidden cursor-pointer relative transition-all" id="home-profile-ring" onclick="handleHomeProfilePicClick()">
                         <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfil">
                     </div>
                 </div>
@@ -321,14 +319,14 @@
                         <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:underline" onclick="navigate('screen-map')">Ver Mapa Real <i class="fas fa-map-marked-alt ml-1"></i></span>
                     </div>
                     <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                        <div onclick="startBooking('La Guacamaya', 'Fútbol 7')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('La Guacamaya')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="La Guacamaya">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">La Guacamaya</p>
                             <p class="text-[10px] text-emerald-400 font-bold uppercase">Fútbol 7 • Disponible</p>
                         </div>
-                        <div onclick="startBooking('Complejo Fray Luis', 'Fútbol 11')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Complejo Fray Luis')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Fray Luis">
                             </div>
@@ -345,14 +343,14 @@
                         <span class="text-emerald-500 text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:underline" onclick="navigate('screen-map')">Ver Mapa Real <i class="fas fa-map-marked-alt ml-1"></i></span>
                     </div>
                     <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-                        <div onclick="startBooking('Los Naranjos', 'Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Los Naranjos')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Los Naranjos Pádel">
                             </div>
                             <p class="font-bold text-sm leading-tight mb-1">Los Naranjos</p>
                             <p class="text-[10px] text-emerald-400 font-bold uppercase">Pádel • Cristal</p>
                         </div>
-                        <div onclick="startBooking('Capital Pádel', 'Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
+                        <div onclick="startBooking('Capital Pádel')" class="rs-glass p-4 rounded-2xl min-w-[150px] cursor-pointer hover:border-emerald-500/50 transition-colors">
                             <div class="w-full h-20 bg-slate-800 rounded-xl mb-3 overflow-hidden">
                                 <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover opacity-70" alt="Capital Padel">
                             </div>
@@ -360,6 +358,21 @@
                             <p class="text-[10px] text-blue-400 font-bold uppercase">Techada • Premium</p>
                         </div>
                     </div>
+                </div>
+
+                <!-- Banner Marketplace RS -->
+                <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-5 border border-slate-700 flex items-center gap-4 shadow-xl cursor-pointer hover:border-emerald-500/30 transition-colors" onclick="navigate('screen-store')">
+                    <div class="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center text-slate-900 relative overflow-hidden">
+                        <i class="fas fa-shopping-bag text-2xl relative z-10"></i>
+                        <div class="absolute inset-0 bg-emerald-500 opacity-20"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-emerald-500 text-[8px] font-black uppercase tracking-widest leading-none mb-1">Store Oficial</p>
+                        <h4 class="text-white font-black italic uppercase text-sm leading-tight only-football">Equípate para jugar</h4>
+                        <h4 class="text-white font-black italic uppercase text-sm leading-tight only-padel">Palas y Accesorios</h4>
+                        <p class="text-slate-400 text-[10px] font-bold mt-1">Ofertas para tu nivel</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-slate-500 text-sm"></i>
                 </div>
 
                 <!-- Estado de Aceptación / Mis Partidas -->
@@ -383,13 +396,13 @@
         <!-- SCREEN 2.1: MAPA GEOGRAFICO    -->
         <!-- ============================== -->
         <div id="screen-map" class="screen hide-scrollbar relative bg-black">
-            <button onclick="navigate('screen-home')" class="absolute top-14 left-6 z-[100] bg-slate-900/80 backdrop-blur text-white p-3 rounded-full shadow-lg border border-white/10 hover:text-emerald-400">
+            <button onclick="navigate('screen-home')" class="absolute top-14 left-6 z-[1000] bg-slate-900/80 backdrop-blur text-white p-3 rounded-full shadow-lg border border-white/10 hover:text-emerald-400">
                 <i class="fas fa-arrow-left"></i>
             </button>
             
             <div id="real-map" class="w-full h-full z-0"></div>
 
-            <div id="map-info-sheet" class="absolute bottom-0 left-0 w-full bg-slate-900 rounded-t-[2.5rem] p-6 border-t border-slate-700 transform translate-y-full transition-transform duration-300 z-[100] shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+            <div id="map-info-sheet" class="absolute bottom-0 left-0 w-full bg-slate-900 rounded-t-[2.5rem] p-6 border-t border-slate-700 transform translate-y-full transition-transform duration-300 z-[1000] shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
                 <div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto mb-4"></div>
                 <h3 id="map-info-title" class="text-2xl font-black italic uppercase tracking-tighter mb-2 text-white">Nombre Cancha</h3>
                 
@@ -577,7 +590,7 @@
         <!-- ============================== -->
         <!-- SCREEN 6: PERFIL Y RANKING     -->
         <!-- ============================== -->
-        <div id="screen-profile" class="screen hide-scrollbar p-6">
+        <div id="screen-profile" class="screen hide-scrollbar p-6 overflow-y-auto pb-32">
              <button onclick="navigate('screen-home')" class="text-emerald-500 text-[10px] font-bold uppercase flex items-center gap-2 mt-8 mb-6 cursor-pointer w-fit hover:text-white">
                 <i class="fas fa-arrow-left"></i> Volver
             </button>
@@ -593,8 +606,8 @@
 
                 <h2 class="text-3xl font-black italic uppercase tracking-tighter flex items-center justify-center gap-2">Antoni Messina <i class="fas fa-check-circle text-emerald-500 text-lg"></i></h2>
                 <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest mt-1">
-                    <span class="only-football">Fútbol 7 • Nivel Gold</span>
-                    <span class="only-padel">Pádel 4.5 • Lado Revés</span>
+                    <span class="only-football inline-football">Fútbol 7 • Nivel Gold</span>
+                    <span class="only-padel inline-padel">Pádel 4.5 • Lado Revés</span>
                 </p>
             </div>
 
@@ -623,7 +636,7 @@
                     <i class="fas fa-chart-bar text-emerald-400 text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
                     <div class="text-2xl font-black">
                         <span class="only-football">42 Goles</span>
-                        <span class="only-padel">68% Win Rate</span>
+                        <span class="only-padel">68% Win</span>
                     </div>
                     <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Ver Detalles <i class="fas fa-search-plus ml-1"></i></div>
                 </div>
@@ -633,11 +646,11 @@
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i>
                     </div>
                     <div class="text-2xl font-black group-hover:text-yellow-500 transition-colors">4.8</div>
-                    <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Ver Comentarios <i class="fas fa-hand-pointer ml-1"></i></div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Comentarios <i class="fas fa-hand-pointer ml-1"></i></div>
                 </div>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-4 mb-8">
                 <h3 class="font-black italic uppercase text-sm border-b border-white/10 pb-2">Reputación Quadrala</h3>
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-slate-300">Asistencia / Puntualidad</span>
@@ -653,10 +666,10 @@
                 </div>
             </div>
             
-            <button onclick="logout()" class="w-full bg-red-500/10 text-red-500 py-3 rounded-xl font-bold text-xs mt-8 border border-red-500/20 hover:bg-red-500/20 transition-colors uppercase tracking-widest">
-                Cerrar Sesión
+            <!-- Botón Cerrar Sesión Restaurado y Muy Visible -->
+            <button onclick="logout()" class="w-full bg-red-500/10 text-red-500 py-4 rounded-xl font-black text-sm mt-8 border border-red-500/20 hover:bg-red-500/20 transition-colors uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
             </button>
-            <div class="h-10"></div>
         </div>
 
         <!-- ============================== -->
@@ -690,34 +703,34 @@
 
                 <!-- PRODUCTOS FÚTBOL -->
                 <div class="grid grid-cols-2 gap-4 only-football" id="store-grid-football">
-                    <!-- Producto Calzado -->
-                    <div class="store-item cat-calzado bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Botas de Fútbol Elite F5', 45.00, 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=400', 'Botas profesionales con tacos de goma diseñadas para tracción óptima en césped sintético. Máxima comodidad y control de balón.')">
+                    <!-- Producto Calzado (Genérico Sin Marca) -->
+                    <div class="store-item cat-calzado bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Botas Tácticas', 45.00, 'https://images.unsplash.com/photo-1624362772596-f9479b9b0c79?auto=format&fit=crop&w=400&q=80', 'Botas profesionales diseñadas para tracción óptima en césped sintético. Máxima comodidad y control de balón.')">
                         <div class="absolute top-2 left-2 bg-emerald-500 text-slate-900 text-[8px] font-black px-2 py-0.5 rounded uppercase z-10">Nuevo</div>
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=400" alt="Botas" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1624362772596-f9479b9b0c79?auto=format&fit=crop&w=400&q=80" alt="Botas Genéricas" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
                         <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Calzado Pro</p>
-                            <h4 class="text-white text-xs font-black leading-tight mb-2">Botas de Fútbol Elite F5</h4>
+                            <h4 class="text-white text-xs font-black leading-tight mb-2">Botas Tácticas F5</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$45.00</span>
-                            <button onclick="addToCart('Botas de Fútbol Elite F5', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Botas Tácticas F5', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
 
-                    <!-- Producto Equipos -->
-                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Balón Oficial de Liga', 30.00, 'https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&q=80&w=400', 'Balón termo-sellado de alta durabilidad, peso reglamentario y textura anti-deslizante para partidos competitivos.')">
+                    <!-- Producto Equipos (Balón Genérico) -->
+                    <div class="store-item cat-equipos bg-slate-800/50 rounded-2xl p-3 border border-white/5 relative group cursor-pointer hover:border-emerald-500/50 transition-colors flex-col" onclick="openProductModal('Balón Oficial', 30.00, 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=400&q=80', 'Balón termo-sellado de alta durabilidad, peso reglamentario y textura anti-deslizante para partidos competitivos.')">
                         <div class="h-28 bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center">
-                            <img src="https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&q=80&w=400" alt="Balón" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
+                            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=400&q=80" alt="Balón Genérico" class="object-cover h-full w-full opacity-90 group-hover:scale-110 transition-transform pointer-events-none">
                         </div>
                         <div class="flex-1 pointer-events-none">
                             <p class="text-slate-400 text-[9px] uppercase font-bold">Equipamiento</p>
-                            <h4 class="text-white text-xs font-black leading-tight mb-2">Balón Oficial de Liga</h4>
+                            <h4 class="text-white text-xs font-black leading-tight mb-2">Balón Oficial Liga</h4>
                         </div>
                         <div class="flex justify-between items-center mt-auto">
                             <span class="text-emerald-400 font-black text-sm">$30.00</span>
-                            <button onclick="addToCart('Balón Oficial de Liga', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                            <button onclick="addToCart('Balón Oficial Liga', event)" class="bg-emerald-500 text-slate-900 w-8 h-8 rounded-lg hover:bg-emerald-400 transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
                     
@@ -943,7 +956,7 @@
                             <span id="owner-status-badge" class="text-[9px] bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded font-black uppercase">Espera Pagos (7/10)</span>
                         </div>
                         <div class="flex items-center justify-between pt-2 border-t border-white/10">
-                            <div class="flex items-center gap-2 cursor-pointer" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
+                            <div class="flex items-center gap-2 cursor-pointer" onclick="showGlobalProfile('other', 'Antoni Messina', 'me', '4.8', 'Jugador Frecuente')">
                                 <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-6 h-6 rounded-full bg-slate-700 object-cover" />
                                 <span class="text-xs font-bold text-slate-300 hover:text-white">Capitán: Antoni M.</span>
                             </div>
@@ -984,7 +997,7 @@
                     
                     <h3 class="font-black italic uppercase text-sm mb-2 text-emerald-400">Top Clientes del Mes (Ballenas)</h3>
                     <div class="bg-slate-800/40 rounded-2xl border border-white/5 divide-y divide-white/5">
-                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('me', 'Antoni Messina', 'me', '4.8', 'Jugador Verificado')">
+                        <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onclick="showGlobalProfile('other', 'Antoni Messina', 'me', '4.8', 'Cliente Frecuente')">
                             <div class="flex items-center gap-3">
                                 <div class="font-black text-xl text-yellow-500 w-4">1</div>
                                 <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full bg-slate-700 object-cover" />
@@ -1307,7 +1320,7 @@
             </div>
         </div>
 
-        <!-- Modal PERFIL UNIVERSAL (Remplaza Public Profile para que sirva para Ti y para Otros) -->
+        <!-- Modal PERFIL UNIVERSAL -->
         <div id="universal-profile-modal" class="modal-overlay pointer-events-auto" onclick="if(event.target===this) toggleModal('universal-profile-modal')">
             <div class="bg-slate-900 w-[85%] rounded-[2rem] p-6 border border-slate-700 shadow-2xl text-center relative max-h-[85%] overflow-y-auto no-scrollbar">
                 <button onclick="toggleModal('universal-profile-modal')" class="absolute top-4 right-4 text-slate-500 p-2 hover:text-white"><i class="fas fa-times"></i></button>
@@ -1325,8 +1338,8 @@
                     <div class="text-center cursor-pointer hover:scale-110 transition-transform" onclick="toggleModal('stats-modal')">
                         <i class="fas fa-chart-bar text-emerald-500 text-xl"></i>
                         <div class="text-lg font-black text-white">
-                            <span class="only-football inline-football" id="uni-prof-goals">42</span><span class="only-football inline-football text-xs ml-1">Goles</span>
-                            <span class="only-padel inline-padel" id="uni-prof-winrate">68%</span><span class="only-padel inline-padel text-xs ml-1">Win</span>
+                            <span class="inline-football" id="uni-prof-goals">42</span><span class="inline-football text-xs ml-1">Goles</span>
+                            <span class="inline-padel" id="uni-prof-winrate">68%</span><span class="inline-padel text-xs ml-1">Win</span>
                         </div>
                         <div class="text-[8px] text-slate-400 uppercase font-bold">Stats</div>
                     </div>
@@ -1349,9 +1362,8 @@
                     </div>
                 </div>
                 
-                <!-- Botones Dinamicos (JS oculta/muestra segun el usuario) -->
+                <!-- Botones Dinamicos -->
                 <button id="uni-prof-add" onclick="toggleModal('universal-profile-modal')" class="w-full bg-emerald-500 text-slate-900 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-400 mb-2">Seguir Jugador</button>
-                <button id="uni-prof-logout" onclick="logout()" class="w-full bg-red-500/10 text-red-500 border border-red-500/20 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-red-500/20 hidden">Cerrar Sesión</button>
             </div>
         </div>
 
@@ -1430,7 +1442,7 @@
                 </div>
                 <div class="space-y-3">
                     <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-emerald-500 cursor-pointer hover:bg-slate-800 transition-colors">
-                        <p class="text-sm text-white leading-tight"><b>Luis Silva</b> te ha invitado a una partida en <span class="only-football inline-football">La Guacamaya</span><span class="only-padel inline-padel">Los Naranjos</span>.</p>
+                        <p class="text-sm text-white leading-tight"><b>Luis Silva</b> te ha invitado a una partida en <span class="inline-football">La Guacamaya</span><span class="inline-padel">Los Naranjos</span>.</p>
                         <p class="text-[10px] text-emerald-400 mt-2 font-bold uppercase">Hace 5 min</p>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border-l-2 border-yellow-500">
@@ -1542,8 +1554,8 @@
                 <div class="text-center mb-4">
                     <i class="fas fa-chart-pie text-emerald-400 text-4xl mb-2"></i>
                     <h3 class="font-black italic uppercase text-2xl text-white">Desempeño</h3>
-                    <p class="text-xs text-slate-400 only-football">Fútbol 7 - Temporada 2026</p>
-                    <p class="text-xs text-slate-400 only-padel">Pádel - Temporada 2026</p>
+                    <p class="text-xs text-slate-400 inline-football">Fútbol 7 - Temporada 2026</p>
+                    <p class="text-xs text-slate-400 inline-padel">Pádel - Temporada 2026</p>
                 </div>
                 
                 <div class="space-y-4">
@@ -1552,12 +1564,12 @@
                         <span class="text-xl font-black text-white">56</span>
                     </div>
                     
-                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 only-football">
+                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 inline-football w-full">
                         <span class="text-sm text-slate-300 font-bold">Asistencias</span>
                         <span class="text-xl font-black text-emerald-400">15</span>
                     </div>
 
-                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 only-padel">
+                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 inline-padel w-full">
                         <span class="text-sm text-slate-300 font-bold">Torneos Jugados</span>
                         <span class="text-xl font-black text-emerald-400">12</span>
                     </div>
@@ -1567,7 +1579,7 @@
                         <span class="text-xl font-black text-yellow-500 flex items-center gap-1">8 <i class="fas fa-trophy text-sm"></i></span>
                     </div>
 
-                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 only-football">
+                    <div class="bg-slate-800/50 p-4 rounded-xl flex justify-between items-center border border-white/5 inline-football w-full">
                         <span class="text-sm text-slate-300 font-bold">Tarjetas (A/R)</span>
                         <span class="text-lg font-black text-white"><span class="text-yellow-500">2</span> / <span class="text-red-500">0</span></span>
                     </div>
@@ -1576,11 +1588,15 @@
             </div>
         </div>
 
-        <!-- Modal Ranking Caracas (Usuario) -->
+        <!-- Modal Ranking Caracas -->
         <div id="ranking-modal" class="modal-overlay pointer-events-auto" onclick="if(event.target===this) toggleModal('ranking-modal')">
             <div class="bg-slate-900 w-[90%] rounded-[2rem] p-6 border border-yellow-500/30 shadow-2xl relative">
                 <button onclick="toggleModal('ranking-modal')" class="absolute top-4 right-4 text-slate-500 p-2 hover:text-white"><i class="fas fa-times"></i></button>
-                <h3 class="font-black italic uppercase text-2xl text-white mb-1 text-center text-yellow-500"><i class="fas fa-trophy"></i> Top Caracas</h3>
+                <h3 class="font-black italic uppercase text-2xl text-white mb-1 text-center text-yellow-500">
+                    <i class="fas fa-trophy"></i> Top Caracas 
+                    <span class="inline-padel">Pádel</span>
+                    <span class="inline-football">Fútbol</span>
+                </h3>
                 <p class="text-xs text-slate-400 text-center mb-6">Mejores jugadores en tu zona</p>
                 
                 <div class="space-y-3">
@@ -1590,7 +1606,7 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alejandro" class="w-10 h-10 rounded-full bg-slate-700" />
                             <div>
                                 <p class="text-sm font-bold text-white">Alejandro G.</p>
-                                <p class="text-[10px] text-yellow-500">5.0 <i class="fas fa-star"></i> • <span class="only-football inline-football">120 Goles</span><span class="only-padel inline-padel">85% Win</span></p>
+                                <p class="text-[10px] text-yellow-500">5.0 <i class="fas fa-star"></i> • <span class="inline-football">120 Goles</span><span class="inline-padel">85% Win Rate</span></p>
                             </div>
                         </div>
                     </div>
@@ -1600,7 +1616,7 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos" class="w-10 h-10 rounded-full bg-slate-700" />
                             <div>
                                 <p class="text-sm font-bold text-white">Roberto (Capi)</p>
-                                <p class="text-[10px] text-yellow-500">4.9 <i class="fas fa-star"></i> • <span class="only-football inline-football">85 Goles</span><span class="only-padel inline-padel">72% Win</span></p>
+                                <p class="text-[10px] text-yellow-500">4.9 <i class="fas fa-star"></i> • <span class="inline-football">85 Goles</span><span class="inline-padel">72% Win Rate</span></p>
                             </div>
                         </div>
                     </div>
@@ -1611,7 +1627,7 @@
                             <img src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=100&auto=format&fit=crop" class="w-10 h-10 rounded-full bg-slate-700 object-cover" />
                             <div>
                                 <p class="text-sm font-bold text-white">Antoni Messina (Tú)</p>
-                                <p class="text-[10px] text-emerald-500">4.8 <i class="fas fa-star"></i> • <span class="only-football inline-football">42 Goles</span><span class="only-padel inline-padel">68% Win</span></p>
+                                <p class="text-[10px] text-emerald-500">4.8 <i class="fas fa-star"></i> • <span class="inline-football">42 Goles</span><span class="inline-padel">68% Win Rate</span></p>
                             </div>
                         </div>
                     </div>
@@ -1701,11 +1717,11 @@
             maxPlayers = sportType === 'padel' ? 4 : 10;
             
             if(sportType === 'padel') {
-                container.classList.add('app-padel');
+                document.body.classList.add('app-padel');
                 document.getElementById('login-subtitle').innerText = "Pádel Elite Caracas";
                 if(btnPadel) { btnPadel.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all bg-emerald-500 text-slate-950 uppercase"; btnFut.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 uppercase"; }
             } else {
-                container.classList.remove('app-padel');
+                document.body.classList.remove('app-padel');
                 document.getElementById('login-subtitle').innerText = "Fútbol Elite Caracas";
                 if(btnFut) { btnFut.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all bg-emerald-500 text-slate-950 uppercase"; btnPadel.className = "flex-1 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 uppercase"; }
             }
@@ -1756,30 +1772,19 @@
             }, 3000);
         }
 
-        // --- MODAL PERFIL GLOBAL (Para OTROS usuarios, no "yo") ---
+        // --- MODAL PERFIL GLOBAL (Para OTROS usuarios) ---
         function showGlobalProfile(type, name, seed, rating, roleText) {
             document.getElementById('uni-prof-name').innerHTML = `${name} <i class="fas fa-check-circle text-emerald-500 text-sm"></i>`;
             document.getElementById('uni-prof-desc').innerText = roleText;
             document.getElementById('uni-prof-rating').innerText = rating;
             
-            document.getElementById('uni-prof-goals').innerText = type === 'me' ? '42' : Math.floor(Math.random() * 100) + 10;
-            document.getElementById('uni-prof-winrate').innerText = type === 'me' ? '68%' : (Math.floor(Math.random() * 40) + 50) + '%';
+            document.getElementById('uni-prof-goals').innerText = Math.floor(Math.random() * 100) + 10;
+            document.getElementById('uni-prof-winrate').innerText = (Math.floor(Math.random() * 40) + 50) + '%';
             
             const imgEl = document.getElementById('uni-prof-img');
-            if(seed === 'me') {
-                imgEl.src = "https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=200&auto=format&fit=crop";
-            } else {
-                imgEl.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
-            }
+            imgEl.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
 
-            if(type === 'me') {
-                document.getElementById('uni-prof-add').style.display = 'none';
-                document.getElementById('uni-prof-logout').style.display = 'block';
-            } else {
-                document.getElementById('uni-prof-add').style.display = 'block';
-                document.getElementById('uni-prof-logout').style.display = 'none';
-            }
-
+            document.getElementById('uni-prof-add').style.display = 'block';
             document.getElementById('search-players-modal').classList.remove('active');
             
             toggleModal('universal-profile-modal');
@@ -1832,6 +1837,14 @@
             }
         }
         
+        function handleHomeProfilePicClick() {
+            if(currentStoryImage) {
+                viewStory();
+            } else {
+                navigate('screen-profile');
+            }
+        }
+
         function handleProfilePicClick() {
             if(currentStoryImage) {
                 viewStory();
@@ -1852,15 +1865,7 @@
         
         function closeStory() {
             document.getElementById('story-modal').classList.remove('active');
-            // Remove rings after viewed once for realism
-            document.getElementById('profile-img-ring').classList.remove('has-story');
-            document.getElementById('profile-img-ring').classList.add('border-emerald-500');
-            const homeRing = document.getElementById('home-profile-ring');
-            if(homeRing) {
-                homeRing.classList.remove('has-story');
-                homeRing.classList.add('border-emerald-500');
-            }
-            currentStoryImage = null; // reset
+            // Las clases has-story se mantienen intactas para persistencia visual
         }
 
         // --- TOURNAMENTS ---
@@ -2017,7 +2022,7 @@
             document.querySelectorAll('.store-filter-btn').forEach(b => { b.className = "store-filter-btn bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border border-white/5"; });
             btn.className = "store-filter-btn bg-emerald-500 text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider";
             document.querySelectorAll('.store-item').forEach(item => {
-                if (category === 'all' || item.classList.contains('cat-' + category)) { item.classList.remove('hidden-item'); } else { item.classList.add('hidden-item'); }
+                if (category === 'all' || item.classList.contains('cat-' + category)) { item.style.display = 'flex'; } else { item.style.display = 'none'; }
             });
         }
         function openProductModal(name, price, imgUrl, desc) {
@@ -2029,7 +2034,7 @@
             toggleModal('product-modal');
         }
         function addToCart(name, event) {
-            if(event) event.stopPropagation(); // Evita abrir el modal si le damos al "+" directo
+            if(event) event.stopPropagation();
             showToast(name + " agregado al carrito");
         }
         function openCheckout(productName, price) {
